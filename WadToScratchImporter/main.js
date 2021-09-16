@@ -26,6 +26,13 @@ async function start() {
 
 		compressed = [];
 
+		if(content.substr(0,4) == "PWAD") {
+			if(!confirm("That file is a PWAD. Currently only IWADs are supported. There will be a lot of errors. Are you sure you want to proceed?")) {
+				button.disabled = false;
+				return;
+			}
+		}
+
 		var lumpCount = num(content.substr(4,4));
 		var lumpListStart = num(content.substr(8,4));
 		var lumpType = "normal";
