@@ -350,9 +350,9 @@ function getSidedefs(textures){
 	for(var i=0; i < sizediv; i++, current+=30) {
 		sidedefs.putDec(num(content.substr(current,2)));
 		sidedefs.putDec(num(content.substr(current+2,2)));
-		sidedefs.putDec(textures[content.substr(current+4,8).replace(/\0/g, '')] || warn("Missing texture "+content.substr(current+4,8).replace(/\0/g, '')) || 0);
-		sidedefs.putDec(textures[content.substr(current+12,8).replace(/\0/g, '')] || warn("Missing texture "+content.substr(current+12,8).replace(/\0/g, '')) || 0);
-		sidedefs.putDec(textures[content.substr(current+20,8).replace(/\0/g, '')] || warn("Missing texture "+content.substr(current+20,8).replace(/\0/g, '')) || 0);
+		sidedefs.putDec(textures[content.substr(current+4,8).replace(/\0/g, '').toUpperCase()] || warn("Missing texture "+content.substr(current+4,8).replace(/\0/g, '').toUpperCase()) || 0);
+		sidedefs.putDec(textures[content.substr(current+12,8).replace(/\0/g, '').toUpperCase()] || warn("Missing texture "+content.substr(current+12,8).replace(/\0/g, '').toUpperCase()) || 0);
+		sidedefs.putDec(textures[content.substr(current+20,8).replace(/\0/g, '').toUpperCase()] || warn("Missing texture "+content.substr(current+20,8).replace(/\0/g, '').toUpperCase()) || 0);
 		sidedefs.putDec(num(content.substr(current+28,2)));
 	}
 	compressed.push(sidedefs.get());
@@ -370,8 +370,8 @@ function getSectors(flats){
 	for(var i=0; i < sizediv; i++, current+=26) {
 		sectors.putDec(num(content.substr(current,2))); //signed
 		sectors.putDec(num(content.substr(current+2,2))); //signed
-		sectors.putDec(flats[content.substr(current+4,8).replace(/\0/g, '')] || warn("Missing flat "+content.substr(current+4,8).replace(/\0/g, '')) || 0);
-		sectors.putDec(flats[content.substr(current+12,8).replace(/\0/g, '')] || warn("Missing flat "+content.substr(current+12,8).replace(/\0/g, '')) || 0);
+		sectors.putDec(flats[content.substr(current+4,8).replace(/\0/g, '').toUpperCase()] || warn("Missing flat "+content.substr(current+4,8).replace(/\0/g, '').toUpperCase()) || 0);
+		sectors.putDec(flats[content.substr(current+12,8).replace(/\0/g, '').toUpperCase()] || warn("Missing flat "+content.substr(current+12,8).replace(/\0/g, '').toUpperCase()) || 0);
 		sectors.putDec(num(content.substr(current+20,2)));
 		sectors.putDec(num(content.substr(current+22,2)));
 		sectors.putDec(num(content.substr(current+24,2)));
