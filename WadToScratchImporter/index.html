@@ -1,4 +1,4 @@
-<!doctype html>
+`<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -8,20 +8,20 @@
 	<body>
 		<h1>wad2scratch</h1>
 		<div>
-			<span>A tool for importing .wad files of games made<br>for idTech1 engine to scratch.</span><br>
+			<span>A tool for importing .wad files of games made<br>for idTech1 engine to scratch.</span><hr>
 			<span>Scratch project id of engine</span>
 			<input type="text" id=project value="504715633">
 			<br>
-			<span>Wad file to import</span>
+			<span>Wad file to import</span>`
 			<input type="file" id=file>
 			<br>
 			<span>Map names (separated by space)</span>
 			<input type="text" id=map value="E1M1" title="For some games it has format E1M1, but for others MAP01">
 			<br>
 			<span>Mode</span>
-			<select id="mode">
+			<select id="mode" title="If something you want to try is not supported try it in different modes - it might work">
 				<option value="doom">Doom</option>
-				<option value="doom2" disabled>Doom 2</option>
+				<option value="doom2">Doom 2</option>
 				<option value="heretic">Heretic</option>
 				<option value="hexen">Hexen</option>
 				<option value="strife" disabled>Strife</option>
@@ -29,6 +29,8 @@
 				<option value="doom64" disabled>Doom 64</option>
 				<option value="srb2" disabled>Sonic Robo Blast 2</option>
 			</select>
+			<br>
+			Ignore non-shareware assets <input type=checkbox checked id=shareware>
 			<hr>
 			<button onclick=start() id=button>Start importing</button>
 			<hr>

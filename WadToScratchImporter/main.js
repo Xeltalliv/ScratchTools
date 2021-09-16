@@ -8,6 +8,7 @@ var compressed;
 async function start() {
 	try{
 		project = document.getElementById("project").value;
+		var shareware = document.getElementById("shareware").checked;
 		var file = document.getElementById("file").files[0];
 		maps = document.getElementById("map").value.split(" ");
 		mode = document.getElementById("mode").value;
@@ -41,8 +42,12 @@ async function start() {
 			var lumpName = content.substr(b+8,8).replace(/\0/g, '');
 			lumpNameArray.push(lumpName);
 
-			if(lumpName == "F1_END"   ) lumpType = "normal";
-			if(lumpName == "P1_END"   ) lumpType = "normal";
+			if(lumpName == "F1_END" ) lumpType = "normal";
+			if(lumpName == "P1_END" ) lumpType = "normal";
+			if(lumpName == "F2_END" ) lumpType = "normal";
+			if(lumpName == "P2_END" ) lumpType = "normal";
+			if(lumpName == "F3_END" ) lumpType = "normal";
+			if(lumpName == "P3_END" ) lumpType = "normal";
 
 			if(lumpName == "PLAYPAL"  ) getPalette(b, palette);
 			if(lumpName == "PNAMES"   ) getPatchNames(b, pnames);
@@ -52,6 +57,12 @@ async function start() {
 
 			if(lumpName == "F1_START" ) lumpType = "flat";
 			if(lumpName == "P1_START" ) lumpType = "patch";
+			if(!shareware) {
+				if(lumpName == "F2_START" ) lumpType = "flat";
+				if(lumpName == "P2_START" ) lumpType = "patch";
+				if(lumpName == "F3_START" ) lumpType = "flat";
+				if(lumpName == "P3_START" ) lumpType = "patch";
+			}
 		}
 
 		flats.F_SKY1   = "sky"; // DEFAULT
