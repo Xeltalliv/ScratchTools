@@ -365,8 +365,8 @@ function getSectors(flats){
 	for(var i=0; i < sizediv; i++, current+=26) {
 		sectors.putDec(num(content.substr(current,2))); //signed
 		sectors.putDec(num(content.substr(current+2,2))); //signed
-		sectors.putDec(flats[content.substr(current+4,8).replace(/\0/g, '')]);
-		sectors.putDec(flats[content.substr(current+12,8).replace(/\0/g, '')]);
+		sectors.putDec(flats[content.substr(current+4,8).replace(/\0/g, '')] || 0);
+		sectors.putDec(flats[content.substr(current+12,8).replace(/\0/g, '')] || 0);
 		sectors.putDec(num(content.substr(current+20,2)));
 		sectors.putDec(num(content.substr(current+22,2)));
 		sectors.putDec(num(content.substr(current+24,2)));
