@@ -198,7 +198,10 @@ function getTextures(location, name, textures, colors, patches, pnames, palette)
 			var yOffset = mod(num(content.substr(start+textureStart+24+u*10,2))-32768,65536)-32768;
 			var patchIndex = num(content.substr(start+textureStart+26+u*10,2));
 			var patch = patches[pnames[patchIndex]];
-			if(!patch) console.log(patchIndex+" "+pnames[patchIndex]);
+			if(!patch) {
+				console.log("Patch "+pnames[patchIndex]+" with index "+patchIndex+" not found");
+				continue;
+			}
 			for(var x=0; x<patch[0]; x++){
 				for(var y=0; y<patch[1]; y++){
 					var color = patch[2][x * patch[1] + y];
