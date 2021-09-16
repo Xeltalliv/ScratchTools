@@ -1,0 +1,73 @@
+button{
+	border: 0;
+	background-color: #ffbe0d;
+	border-radius: 5px;
+	padding: 0;
+	width: 120px;
+	height: 40px;
+	position: absolute;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	box-shadow: 2px 2px 4px #00000055;
+}
+.file{
+	opacity: 0;
+	position: absolute;
+	width: 120px;
+	height: 40px;
+}
+.str{
+	width: 100px;
+	height: 50px;
+}
+.inb{
+	text-align: left;
+	display: inline-block;
+	background-color: #ffffff;
+	width: 600px;
+	border: 1px solid #e2e2e2;
+	border-radius: 5px;
+	margin: 30px 0 0 0;
+	padding: 15px;
+}
+body{
+	background-color: #f2f2f2;
+	text-align: center;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+.title{
+	position: relative;
+	top:50px;
+}
+.uppertext{
+	background-color: #4d97ff;
+	height: 150px;
+	text-align: center;
+	font-size: 45px;
+	font-weight: bold;
+	color: white;
+	bottom-border: 1px solid #1a3864;
+}
+.total{
+	width: 100%;
+	height: 10px;
+	background-color: #111111;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.new{
+	float: left;
+	height: 10px;
+	background-color: #11ee11;
+}
+.old{
+	float: left;
+	height: 10px;
+	background-color: #eeee11;
+}
