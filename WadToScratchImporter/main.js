@@ -2,11 +2,13 @@ var project;
 var content;
 var maps;
 var mode;
+var warnings;
 
 var compressed;
 
 async function start() {
 	try{
+		warnings = 0;
 		project = document.getElementById("project").value;
 		var shareware = document.getElementById("shareware").checked;
 		var file = document.getElementById("file").files[0];
@@ -199,7 +201,7 @@ function getTextures(location, name, textures, colors, patches, pnames, palette)
 			var patchIndex = num(content.substr(start+textureStart+26+u*10,2));
 			var patch = patches[pnames[patchIndex]];
 			if(!patch) {
-				console.log("Patch "+pnames[patchIndex]+" with index "+patchIndex+" not found");
+				warn("Patch "+pnames[patchIndex]+" with index "+patchIndex+" not found");
 				continue;
 			}
 			for(var x=0; x<patch[0]; x++){
@@ -348,9 +350,9 @@ function getSidedefs(textures){
 	for(var i=0; i < sizediv; i++, current+=30) {
 		sidedefs.putDec(num(content.substr(current,2)));
 		sidedefs.putDec(num(content.substr(current+2,2)));
-		sidedefs.putDec(textures[content.substr(current+4,8).replace(/\0/g, '')] || 0);
-		sidedefs.putDec(textures[content.substr(current+12,8).replace(/\0/g, '')] || 0);
-		sidedefs.putDec(textures[content.substr(current+20,8).replace(/\0/g, '')] || 0);
+		sidedefs.putDec(textures[content.substr(current+4,8).replace(/\0/g, '')] || warn("Missing texture "+content.substr(current+4,8).replace(/\0/g, '')) || 0);
+		sidedefs.putDec(textures[content.substr(current+12,8).replace(/\0/g, '')] || warn("Missing texture "+content.substr(current+12,8).replace(/\0/g, '')) || 0);
+		sidedefs.putDec(textures[content.substr(current+20,8).replace(/\0/g, '')] || warn("Missing texture "+content.substr(current+20,8).replace(/\0/g, '')) || 0);
 		sidedefs.putDec(num(content.substr(current+28,2)));
 	}
 	compressed.push(sidedefs.get());
@@ -368,8 +370,8 @@ function getSectors(flats){
 	for(var i=0; i < sizediv; i++, current+=26) {
 		sectors.putDec(num(content.substr(current,2))); //signed
 		sectors.putDec(num(content.substr(current+2,2))); //signed
-		sectors.putDec(flats[content.substr(current+4,8).replace(/\0/g, '')] || 0);
-		sectors.putDec(flats[content.substr(current+12,8).replace(/\0/g, '')] || 0);
+		sectors.putDec(flats[content.substr(current+4,8).replace(/\0/g, '')] || warn("Missing flat "+content.substr(current+4,8).replace(/\0/g, '')) || 0);
+		sectors.putDec(flats[content.substr(current+12,8).replace(/\0/g, '')] || warn("Missing flat "+content.substr(current+12,8).replace(/\0/g, '')) || 0);
 		sectors.putDec(num(content.substr(current+20,2)));
 		sectors.putDec(num(content.substr(current+22,2)));
 		sectors.putDec(num(content.substr(current+24,2)));
@@ -556,6 +558,7 @@ async function packageProject() {
 		.then(function(content) {
 			saveAs(content, "project.sb3");
 		});
+		if(warnings > 0) alert("There were " + warnings + " non-critical errors while generating this sb3. Open browser console to view them");
 	} catch(e) {
 		alert(e);
 	}
@@ -622,6 +625,11 @@ function num(str) {
 
 function mod(a,b){
 	return a - Math.floor(a / b) * b;
+}
+
+function warn(...args) {
+	warnings++;
+	console.warn(...args);
 }
 
 function mergeListsB64(input){
