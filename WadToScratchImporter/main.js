@@ -60,7 +60,8 @@ async function start() {
 
 			if(lumpName == "PLAYPAL"  ) getPalette(b, palette);
 			if(lumpName == "PNAMES"   ) getPatchNames(b, pnames);
-			if(lumpName == "TEXTURE1" ) pointers2.texture = {b:b, lumpName:lumpName};
+			if(lumpName == "TEXTURE1" ) pointers2.texture1 = {b:b, lumpName:lumpName};
+			if(lumpName == "TEXTURE2" ) pointers2.texture2 = {b:b, lumpName:lumpName};
 			if(lumpType == "flat"     ) getFlat(b, lumpName, flats, palette, colors);
 			if(lumpType == "patch"    ) getPatch(b, lumpName, patches);
 
@@ -78,7 +79,8 @@ async function start() {
 		flats.F_SKY    = "sky"; // HEXEN
 		flats.F_SKY001 = "sky"; // STRIFE
 
-		getTextures(pointers2.texture.b, pointers2.texture.lumpName, textures, colors, patches, pnames, palette);
+		if(pointers2.texture1              ) getTextures(pointers2.texture1.b, pointers2.texture1.lumpName, textures, colors, patches, pnames, palette);
+		if(pointers2.texture2 && !shareware) getTextures(pointers2.texture2.b, pointers2.texture2.lumpName, textures, colors, patches, pnames, palette);
 
 		for(var m=0; m<maps.length; m++) {
 			var mapFound = false;
@@ -190,6 +192,9 @@ function getPatch(location, name, patches) {
 function getTextures(location, name, textures, colors, patches, pnames, palette) {
 	var start = num(content.substr(location,4));
 
+	var ifStrife4 = (mode == "strife") ? 4 : 0;
+	var patchDataSize = 10 - ifStrife4;
+
 	var current = start;
 	var amount = num(content.substr(start,4));
 	for (var i=0; i < amount; i++) {
@@ -201,11 +206,12 @@ function getTextures(location, name, textures, colors, patches, pnames, palette)
 		var totalHeight = num(content.substr(start+textureStart+14,2));
 		var image = new Array(totalWidth * totalHeight).fill(null);
 
-		var patchAmount = num(content.substr(start+textureStart+20,2));
+		var patchAmount = num(content.substr(start+textureStart+20-ifStrife4,2));
 		for (var u=0; u < patchAmount; u++) {
-			var xOffset = mod(num(content.substr(start+textureStart+22+u*10,2))-32768,65536)-32768;
-			var yOffset = mod(num(content.substr(start+textureStart+24+u*10,2))-32768,65536)-32768;
-			var patchIndex = num(content.substr(start+textureStart+26+u*10,2));
+			var memOffset = 20 - ifStrife4 + u * patchDataSize;
+			var xOffset = mod(num(content.substr(start+textureStart+2+memOffset,2))-32768,65536)-32768;
+			var yOffset = mod(num(content.substr(start+textureStart+4+memOffset,2))-32768,65536)-32768;
+			var patchIndex = num(content.substr(start+textureStart+6+memOffset,2));
 			var patch = patches[pnames[patchIndex]];
 			if(!patch) {
 				warn("Patch "+pnames[patchIndex]+" with index "+patchIndex+" not found");
