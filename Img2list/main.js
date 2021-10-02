@@ -11,7 +11,7 @@ document.getElementById("file").onchange = async filepicker => {
 		let str = "imgdata[i+"+channelMode[i]+"]"
 		if(mode[0] != "d") str = "('00'+("+str+").toString(16)).substr(-2)";
 		if(mode[0] == "d" && mode[1] == "c") {
-			let mul = 256 ** channelMode[i];
+			let mul = 256 ** (channelMode.length - 1 - i);
 			if(mul > 1) str += "*"+mul;
 		}
 		if(mode[0] == "p" && mode[1] == "n") str = "'0x'+"+str;
