@@ -24,7 +24,7 @@ document.getElementById("file").onchange = async filepicker => {
 
 	let output = [];
 	let files = filepicker.target.files;
-	filepicker.value = null;
+	document.getElementById("file").value = null;
 	for(let i=0; i<files.length; i++) {
 		let file = files[i];
 		process(await new Promise((resolve, reject) => {
