@@ -24,7 +24,6 @@ document.getElementById("file").onchange = async filepicker => {
 
 	let output = [];
 	let files = filepicker.target.files;
-	document.getElementById("file").value = null;
 	for(let i=0; i<files.length; i++) {
 		let file = files[i];
 		process(await new Promise((resolve, reject) => {
@@ -38,6 +37,7 @@ document.getElementById("file").onchange = async filepicker => {
 	let name = files.length == 1 ? files[0].name : "images";
 	let blob = new Blob([output.join('\n')], {type:"text/plain;charset=utf-8"});
 	saveAs(blob, name+".txt");
+	document.getElementById("file").value = null;
 }
 
 function process(image, func, output) {
