@@ -1,15 +1,31 @@
 button{
 	border: 0;
-	background-color: #ffbe0d;
+	margin: 0px 3px;
+	background-color: #4d97ff;
 	border-radius: 5px;
-	padding: 0;
-	width: 120px;
+	width: 140px;
 	height: 40px;
-	position: absolute;
 	font-size: 15px;
 	font-weight: bold;
 	color: white;
 	box-shadow: 2px 2px 4px #00000055;
+	transition: all 100ms ease-out;
+}
+button:hover{
+	background-color: #6db7ff;
+}
+.urlInput{
+	flex: 1;
+	border-radius: 5px;
+	border: 2px solid #aaaaaa;
+}
+.divider{
+	background-color: #aaaaaa;
+	width: 2px;
+	height: 40px;
+}
+.buttonHolder{
+	display: flex;
 }
 .file{
 	opacity: 0;
@@ -32,6 +48,7 @@ button{
 	padding: 15px;
 }
 body{
+	min-width: 640px;
 	background-color: #f2f2f2;
 	text-align: center;
 	margin: 0;
@@ -64,10 +81,20 @@ body{
 .new{
 	float: left;
 	height: 10px;
+	width: 0%;
 	background-color: #11ee11;
+	transition: all 100ms ease-out;
 }
 .old{
 	float: left;
 	height: 10px;
+	width: 0%;
 	background-color: #eeee11;
+	transition: all 100ms ease-out;
+}
+.redText{
+	color: red;
+}
+.hidden{
+	display: none;
 }

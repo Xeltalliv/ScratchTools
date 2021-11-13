@@ -10,25 +10,27 @@
 			<span class=title>Scratch 3 project.json minimizer</title>
 		</div>
 		<div class=inb>
-			Import <u>project.json</u> file:
-			<div class=str><button>Select file</button><input type="file" id=file1 class=file></div>
+			<div class=buttonHolder><input type=text placeholder="Project URL or id here" id=urlInput class=urlInput><button onclick=Loader.loadFromUrl() id=loadFromUrl>Load from URL</button><div class=divider></div><button onclick=Loader.loadFromFile() id=loadFromFile>Select local file</button></div>
+			<span id=importError class=redText></span>
 			<hr>
-			<span>Clear monitors</span><input type=checkbox id=c0 checked><br>
-			<span>Make covered values empty</span><input type=checkbox id=c1 checked><br>
-			<span>Reduce block identifier size</span><input type=checkbox id=c2 checked><br>
-			<hr>
-			<span>Debug (may cause errors)</span><input type=checkbox id=c3><br>
+			<span title="Monitors are things that show some value on the stage. They have position and can show variables, lists and other properties of a sprite. If they were shown once, their position will be saved permanently taking up valuable project.json space. This option deletes monitors which are considered unused. Monitors are consiered unused if they are hidden and are not refferenced by showing and hiding blocks">Clear unused monitors</span><input type=checkbox id=c0 checked><br>
+			<span title="When the block is inserted into the input of the other block, the original value of that input remains taking up project.json space. They can't be removed entirely, because it breaks project. With this option enabled, those values are set to empty, which are still valid, but take up less space. Also, you may notice that it inserts 0s in some cases. That is done in places where numeric values are expected. 0 takes up less space than double double quotes which are used to indicate empty text input.">Make covered values empty</span><input type=checkbox id=c1 checked><br>
+			<span title="Scratch projects consit of a lot of things connected to one another. Those connections are done by giving evey thing a 20 character unique identifier, and refferencing other things using them. 20 characters is a lot considering that on average every scratch block has 4 of those, and there is no reason why they should be so long. Reducing their size doesn't break anything, so this option does exactly that.">Reduce identifier size</span><input type=checkbox id=c2 checked><br>
 			<hr>
 			Result:
-			<span id=text>nothing yet</span>
+			<span id=message>nothing yet</span>
 			<div class=total>
 				<div class=new id=new>
 				</div>
 				<div class=old id=old>
 				</div>
 			</div>
+			<input type=file class=hidden id=filePicker>
 		</div>
+		<script src=../vendor/JSZip/jszip.js></script>
 		<script src=../vendor/FileSaver/FileSaver.js></script>
+		<script src=../vendor/MD5/MD5.js></script>
+
 		<script src=main.js></script>
 	</body>
 </html>
