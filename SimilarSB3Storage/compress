@@ -1,0 +1,14 @@
+#!/bin/bash
+
+mkdir -p assets
+mkdir -p jsons
+
+for i in *.sb3
+do
+	cd "assets/"
+	unzip -n "../$i"
+	mv "project.json" "../jsons/${i::-4}"
+	touch -c -r "../$i" "../jsons/${i::-4}"
+	cd ..
+	rm "$i"
+done

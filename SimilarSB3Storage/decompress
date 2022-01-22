@@ -1,0 +1,25 @@
+#!/bin/bash
+
+mkdir -p assets
+mkdir -p jsons
+
+filename="$1"
+
+if [ ! -f "jsons/$filename" ]
+then
+	echo "File $filename not found!"
+	exit 1
+fi
+
+fileList="project.json"
+mv "jsons/$filename" "assets/project.json"
+for i in $(jq -r '.targets[] | .costumes[] | .md5ext' "assets/project.json")
+do
+	fileList="$fileList $i"
+done
+
+cd assets/
+zip "../${filename}.sb3" $fileList
+cd ..
+touch -r "assets/project.json" "${filename}.sb3"
+mv "assets/project.json" "jsons/$filename" 
