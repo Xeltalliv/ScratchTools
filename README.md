@@ -18,7 +18,7 @@ A tool for converting images to lists of numbers in a variaty of ways.
 Scratch project file format `.sb3` is actually a zip archive with all of the assets and 1 json file.
 That json file has a limit of 5 MiB, and scratch by default wastes a lot of space in it.
 This program reduces the size of this json file in a way that can't cause any issues and that remains
-persistant even after being loaded and resaved in scratch.
+persistent even after being loaded and resaved in scratch.
 
 
 #### [STT-Visualizer](https://xeltalliv.github.io/ScratchTools/STT_Visualizer/)
@@ -48,7 +48,7 @@ A tool for importing `.wad` files of [idTech1](https://en.wikipedia.org/wiki/Doo
 
 ---
 
-## Lincense
+## License
 
 All files in the repository with the exception of `/vendor` folder are licensed under GNU General Public License v3.0.
 
