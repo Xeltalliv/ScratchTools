@@ -37,6 +37,7 @@ var Elements = {
 	loadFromFile: document.getElementById("loadFromFile"),
 	loadFromUrl: document.getElementById("loadFromUrl"),
 	message: document.getElementById("message"),
+	waitForDownload: document.getElementById("waitForDownload"),
 }
 
 var Loader = {
@@ -404,6 +405,7 @@ var Minimizer = {
 
 			var delta = content.length - content3.length;
 			Elements.message.innerText = "Size decreased by "+delta+" bytes";
+			Elements.waitForDownload.style.display = "inline";
 			Visual.newbar(content3.length / 5242880);
 			Visual.oldbar((content.length - content3.length) / 5242880);
 			return content3;
@@ -419,6 +421,7 @@ var Visual = {
 		Elements.oldbar.style.width = "0%";
 		Elements.importError.innerText = "";
 		Elements.message.innerText = "nothing yet";
+		Elements.waitForDownload.style.display = "none";
 	},
 
 	newbar: function(size) {
