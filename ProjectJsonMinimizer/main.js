@@ -96,11 +96,14 @@ var Loader = {
 				for(var asset in sprite.sounds) assetCounter[1]++;
 			}
 			await Visual.show("Loading "+assetCounter[1]+" assets");
+
+			let promiseList = [];
 			for(var spriteName in targets){
 				let sprite = targets[spriteName];
-				for(var asset in sprite.costumes) await Loader.processAsset(sprite.costumes[asset], assets, assetCounter);
-				for(var asset in sprite.sounds) await Loader.processAsset(sprite.sounds[asset], assets, assetCounter);
+				for(var asset in sprite.costumes) promiseList.push(Loader.processAsset(sprite.costumes[asset], assets, assetCounter));
+				for(var asset in sprite.sounds) promiseList.push(Loader.processAsset(sprite.sounds[asset], assets, assetCounter));
 			}
+			await Promise.all(promiseList);
 			console.log("All assets loaded");
 
 			project = await Minimizer.minimizeJSON(projectJson, project);
@@ -483,7 +486,7 @@ var requestsActive = 0;
 
 function download(url, type, error) {
 	return new Promise((resolve, reject) => {
-		requestsAwaiting.push({url:url, type:type, resolve:resolve, reject:reject, error:error});
+		requestsAwaiting.push({url:url, type:type, resolve:resolve, error:error, attempt:1});
 		downloadNext();
 	});
 }
@@ -506,7 +509,14 @@ function downloadNext() {
 		downloadNext();
 	}
 	xhr.onerror = function() {
-		alert(current.error);
+		if(current.attempt < 4) {
+			current.attempt++;
+			requestsAwaiting.push(current);
+			requestsActive--;
+			downloadNext();
+		} else {
+			alert(current.error);
+		}
 	}
 	xhr.send();
 }
