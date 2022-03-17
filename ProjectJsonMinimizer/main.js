@@ -91,7 +91,7 @@ var Loader = {
 
 			let assets = {};
 			let assetCounter = [0, 0];
-			for(var spriteName in targets){
+			for(var spriteName in targets) {
 				let sprite = targets[spriteName];
 				for(var asset in sprite.costumes) assetCounter[1]++;
 				for(var asset in sprite.sounds) assetCounter[1]++;
@@ -99,7 +99,7 @@ var Loader = {
 			await Visual.show("Loading "+assetCounter[1]+" assets");
 
 			let promiseList = [];
-			for(var spriteName in targets){
+			for(var spriteName in targets) {
 				let sprite = targets[spriteName];
 				for(var asset in sprite.costumes) promiseList.push(Loader.processAsset(sprite.costumes[asset], assets, assetCounter));
 				for(var asset in sprite.sounds) promiseList.push(Loader.processAsset(sprite.sounds[asset], assets, assetCounter));
@@ -178,7 +178,7 @@ var Minimizer = {
 					}
 					if(Elements.checkboxCover.checked) {
 						let block = sprite.blocks[b];
-						for(let c in block.inputs){
+						for(let c in block.inputs) {
 							let u = block.inputs[c][2];
 							if(u && typeof(u)=="object") {
 								if(u[0] > 3 && u[0] < 9) u[1]=0;
@@ -197,29 +197,29 @@ var Minimizer = {
 					}
 				}
 				if(Elements.checkboxIdent.checked) {
-					for(let b in sprite.variables){
-						if(!variablesAdded[b]){
+					for(let b in sprite.variables) {
+						if(!variablesAdded[b]) {
 							let tmp = [b, 0];
 							variables.push(tmp);
 							variablesAdded[b] = true;
 						}
 					}
-					for(let b in sprite.lists){
-						if(!listsAdded[b]){
+					for(let b in sprite.lists) {
+						if(!listsAdded[b]) {
 							let tmp = [b, 0];
 							lists.push(tmp);
 							listsAdded[b] = true;
 						}
 					}
-					for(let b in sprite.broadcasts){
-						if(!broadcastsAdded[b]){
+					for(let b in sprite.broadcasts) {
+						if(!broadcastsAdded[b]) {
 							let tmp = [b, 0];
 							broadcasts.push(tmp);
 							broadcastsAdded[b] = true;
 						}
 					}
-					for(let b in sprite.comments){
-						if(!commentsAdded[b]){
+					for(let b in sprite.comments) {
+						if(!commentsAdded[b]) {
 							let tmp = [b, 0];
 							comments.push(tmp);
 							commentsAdded[b] = true;
@@ -246,7 +246,7 @@ var Minimizer = {
 
 			let all = [...blocks, ...variables, ...lists, ...broadcasts, ...comments];
 			let m = 0, n = 0;
-			for(var b in all){
+			for(var b in all) {
 				if(all[b][0].length < 3) {
 					if(!otherComprressor) Elements.importError.innerText="Warning: it looks like the project.json of this project has already been compressed by something else even more than this tool can do (most likely Turbowarp). As a result of it, the resulting file may end up being even bigger than input file";
 					otherComprressor = true;
@@ -285,7 +285,7 @@ var Minimizer = {
 			let combin = [0,0,0];
 			let combin2 = ["q","q","q"];
 
-			function increment(combin, combin2, code, i){
+			function increment(combin, combin2, code, i) {
 				if(combin[i] === undefined) {
 					combin.push(0);
 					combin2.push("q");
@@ -301,11 +301,11 @@ var Minimizer = {
 			}
 
 			var cTable2 = {};
-			for(var b in all){
+			for(var b in all) {
 				increment(combin, combin2, code, 0);
 				cTable2[all[b][0]] = combin2.join("");
 			}
-			var cTable = new Proxy(cTable2,{
+			var cTable = new Proxy(cTable2, {
 				get(target, prop) {
 					if(target[prop] == undefined) {
 						increment(combin, combin2, code, 0);
@@ -324,15 +324,15 @@ var Minimizer = {
 				for(let b in sprite.blocks) {
 					let block = sprite.blocks[b];
 					newList[cTable[b]] = block;
-					if(block.opcode){
+					if(block.opcode) {
 						if(block.parent ) block.parent  = cTable[block.parent ];
 						if(block.next   ) block.next    = cTable[block.next   ];
 						if(block.comment) block.comment = cTable[block.comment];
 						let inputs = block.inputs;
-						for(let c in inputs){
+						for(let c in inputs) {
 							let input = inputs[c];
 							if(typeof input != "object") continue;
-							for(let d in input){
+							for(let d in input) {
 								switch(typeof input[d]) {
 									case "string":
 										input[d] = cTable[input[d]];
@@ -350,7 +350,7 @@ var Minimizer = {
 						if(fields.VARIABLE) fields.VARIABLE[1] = cTable[fields.VARIABLE[1]];
 						if(fields.LIST) fields.LIST[1] = cTable[fields.LIST[1]];
 						if(fields.BROADCAST_OPTION) fields.BROADCAST_OPTION[1] = cTable[fields.BROADCAST_OPTION[1]];
-					} else if(block){
+					} else if(block) {
 						if(block[0] == 11) block[2] = cTable[block[2]];
 						if(block[0] == 12) block[2] = cTable[block[2]];
 						if(block[0] == 13) block[2] = cTable[block[2]];
@@ -364,22 +364,22 @@ var Minimizer = {
 				}
 				sprite.blocks = newList;
 				newList = {};
-				for(let b in sprite.variables){
+				for(let b in sprite.variables) {
 					newList[cTable[b]] = sprite.variables[b];
 				}
 				sprite.variables = newList;
 				newList = {};
-				for(let b in sprite.lists){
+				for(let b in sprite.lists) {
 					newList[cTable[b]] = sprite.lists[b];
 				}
 				sprite.lists = newList;
 				newList = {};
-				for(let b in sprite.broadcasts){
+				for(let b in sprite.broadcasts) {
 					newList[cTable[b]] = sprite.broadcasts[b];
 				}
 				sprite.broadcasts = newList;
 				newList = {};
-				for(let b in sprite.comments){
+				for(let b in sprite.comments) {
 					newList[cTable[b]] = sprite.comments[b];
 					sprite.comments[b].blockId = cTable[sprite.comments[b].blockId];
 				}
@@ -396,7 +396,7 @@ var Minimizer = {
 				await Visual.show("Searching for errors");
 				m = 0;
 				n = 0;
-				for(var b in all){
+				for(var b in all) {
 					content3.occurrences('"'+all[b][0]+'"', true);
 					m++;
 					if(m > 199) {
@@ -437,7 +437,7 @@ var Visual = {
 		Elements.oldbar.style.width = (size*100)+"%";
 	},
 
-	show: async function(string){
+	show: async function(string) {
 		Elements.message.innerHTML = string;
 		await waitFrame();
 	},
@@ -475,14 +475,14 @@ function tryFunc(func, error) {
 }
 
 function tryVal(val, error) {
-	if(val){
+	if(val) {
 		return val;
 	} else {
 		throw new Error(error);
 	}
 }
 
-function waitFrame(){
+function waitFrame() {
 	return new Promise((resolve,reject) => {
 		window.requestAnimationFrame(() => resolve(true));
 	});
@@ -508,7 +508,7 @@ function downloadNext() {
 	if(current.type) xhr.responseType = current.type;
 	xhr.open('GET', current.url, true);
 	xhr.onload = function() {
-		if(current.type == "arraybuffer"){
+		if(current.type == "arraybuffer") {
 			current.resolve(this.response);
 		} else {
 			current.resolve(this.responseText);
