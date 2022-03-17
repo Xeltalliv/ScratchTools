@@ -242,10 +242,15 @@ var Minimizer = {
 
 
 			await Visual.show("Counting occurances");
+			var otherComprressor = false;
 
 			let all = [...blocks, ...variables, ...lists, ...broadcasts, ...comments];
 			let m = 0, n = 0;
 			for(var b in all){
+				if(all[b][0].length < 3) {
+					if(!otherComprressor) Elements.importError.innerText="Warning: it looks like the project.json of this project has already been compressed by something else even more than this tool can do (most likely Turbowarp). As a result of it, the resulting file may end up being even bigger than input file";
+					otherComprressor = true;
+				}
 				all[b][1] = content.occurrences('"'+all[b][0]+'"');
 				m++;
 				if(m > 49) {
@@ -404,7 +409,7 @@ var Minimizer = {
 			}
 
 			var delta = content.length - content3.length;
-			Elements.message.innerText = "Size decreased by "+delta+" bytes";
+			Elements.message.innerHTML = "Size "+(delta > 0 ? "decreased" : "<span class=redText>increased</span>")+" by "+Math.abs(delta)+" bytes";
 			Elements.waitForDownload.style.display = "inline";
 			Visual.newbar(content3.length / 5242880);
 			Visual.oldbar((content.length - content3.length) / 5242880);
