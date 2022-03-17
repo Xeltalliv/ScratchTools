@@ -305,15 +305,14 @@ var Minimizer = {
 				increment(combin, combin2, code, 0);
 				cTable2[all[b][0]] = combin2.join("");
 			}
-			var cTable = new Proxy(cTable2, {
-				get(target, prop) {
-					if(target[prop] == undefined) {
-						increment(combin, combin2, code, 0);
-						target[prop] = cTable2[prop] = combin2.join("");
-					}
-					return target[prop];
+			var cTable = function(prop) {
+				if(!Elements.checkboxIdent.checked) return prop;
+				if(cTable2[prop] == undefined) {
+					increment(combin, combin2, code, 0);
+					cTable2[prop] = combin2.join("");
 				}
-			});
+				return cTable2[prop];
+			}
 
 			await Visual.show("JSON pass 2");
     
@@ -323,11 +322,11 @@ var Minimizer = {
 				let newList = {};
 				for(let b in sprite.blocks) {
 					let block = sprite.blocks[b];
-					newList[cTable[b]] = block;
+					newList[cTable(b)] = block;
 					if(block.opcode) {
-						if(block.parent ) block.parent  = cTable[block.parent ];
-						if(block.next   ) block.next    = cTable[block.next   ];
-						if(block.comment) block.comment = cTable[block.comment];
+						if(block.parent ) block.parent  = cTable(block.parent );
+						if(block.next   ) block.next    = cTable(block.next   );
+						if(block.comment) block.comment = cTable(block.comment);
 						let inputs = block.inputs;
 						for(let c in inputs) {
 							let input = inputs[c];
@@ -335,25 +334,25 @@ var Minimizer = {
 							for(let d in input) {
 								switch(typeof input[d]) {
 									case "string":
-										input[d] = cTable[input[d]];
+										input[d] = cTable(input[d]);
 										break;
 									case "object":
 										if(!input[d]) continue;
-										if(input[d][0] == 11) input[d][2] = cTable[input[d][2]];
-										if(input[d][0] == 12) input[d][2] = cTable[input[d][2]];
-										if(input[d][0] == 13) input[d][2] = cTable[input[d][2]];
+										if(input[d][0] == 11) input[d][2] = cTable(input[d][2]);
+										if(input[d][0] == 12) input[d][2] = cTable(input[d][2]);
+										if(input[d][0] == 13) input[d][2] = cTable(input[d][2]);
 										break;
 								}
 							}
 						}
 						let fields = block.fields;
-						if(fields.VARIABLE) fields.VARIABLE[1] = cTable[fields.VARIABLE[1]];
-						if(fields.LIST) fields.LIST[1] = cTable[fields.LIST[1]];
-						if(fields.BROADCAST_OPTION) fields.BROADCAST_OPTION[1] = cTable[fields.BROADCAST_OPTION[1]];
+						if(fields.VARIABLE) fields.VARIABLE[1] = cTable(fields.VARIABLE[1]);
+						if(fields.LIST) fields.LIST[1] = cTable(fields.LIST[1]);
+						if(fields.BROADCAST_OPTION) fields.BROADCAST_OPTION[1] = cTable(fields.BROADCAST_OPTION[1]);
 					} else if(block) {
-						if(block[0] == 11) block[2] = cTable[block[2]];
-						if(block[0] == 12) block[2] = cTable[block[2]];
-						if(block[0] == 13) block[2] = cTable[block[2]];
+						if(block[0] == 11) block[2] = cTable(block[2]);
+						if(block[0] == 12) block[2] = cTable(block[2]);
+						if(block[0] == 13) block[2] = cTable(block[2]);
 					}
 					m++;
 					if(m > 199) {
@@ -365,30 +364,29 @@ var Minimizer = {
 				sprite.blocks = newList;
 				newList = {};
 				for(let b in sprite.variables) {
-					newList[cTable[b]] = sprite.variables[b];
+					newList[cTable(b)] = sprite.variables[b];
 				}
 				sprite.variables = newList;
 				newList = {};
 				for(let b in sprite.lists) {
-					newList[cTable[b]] = sprite.lists[b];
+					newList[cTable(b)] = sprite.lists[b];
 				}
 				sprite.lists = newList;
 				newList = {};
 				for(let b in sprite.broadcasts) {
-					newList[cTable[b]] = sprite.broadcasts[b];
+					newList[cTable(b)] = sprite.broadcasts[b];
 				}
 				sprite.broadcasts = newList;
 				newList = {};
 				for(let b in sprite.comments) {
-					newList[cTable[b]] = sprite.comments[b];
-					sprite.comments[b].blockId = cTable[sprite.comments[b].blockId];
+					newList[cTable(b)] = sprite.comments[b];
+					sprite.comments[b].blockId = cTable(sprite.comments[b].blockId);
 				}
 				sprite.comments = newList;
 			}
 			for(let a=0; a<jsoned.monitors.length; a++) {
-				jsoned.monitors[a].id = cTable[jsoned.monitors[a].id];
+				jsoned.monitors[a].id = cTable(jsoned.monitors[a].id);
 			}
-
 
 			var content3 = JSON.stringify(jsoned);
 
