@@ -407,13 +407,15 @@ var Minimizer = {
 			}
 
 			var delta = content.length - content3.length;
-			Elements.message.innerHTML = "Size "+(delta > 0 ? "decreased" : "<span class=redText>increased</span>")+" by "+Math.abs(delta)+" bytes";
+			if(delta >  0) Elements.message.innerText = "Size decreased by "+delta+" bytes";
+			if(delta == 0) Elements.message.innerText = "Size haven't changed";
+			if(delta <  0) Elements.message.innerHTML = "Size <span class=redText>increased</span> by "+(-delta)+" bytes";
 			Elements.waitForDownload.style.display = "inline";
 			Visual.newbar(content3.length / 5242880);
 			Visual.oldbar((content.length - content3.length) / 5242880);
 			return content3;
 		} catch(error) {
-			Elements.message.innerText='<span class=redText>'+error+'</span>';
+			Elements.message.innerHTML='<span class=redText>'+error+'</span>';
 		}
 	}
 }
