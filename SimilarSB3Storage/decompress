@@ -18,6 +18,11 @@ do
 	fileList="$fileList $i"
 done
 
+for i in $(jq -r '.targets[] | .sounds[] | .md5ext' "assets/project.json")
+do
+	fileList="$fileList $i"
+done
+
 cd assets/
 zip "../${filename}.sb3" $fileList
 cd ..
