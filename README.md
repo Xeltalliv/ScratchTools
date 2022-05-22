@@ -1,8 +1,8 @@
 # ScratchTools
 
-ScratchTools - a set of simple [Scratch](https://en.wikipedia.org/wiki/Scratch_(programming_language)) related, but mostly unrelated to each other programs.
+ScratchTools - a set of simple [Scratch](https://en.wikipedia.org/wiki/Scratch_(programming_language)) related, but mostly unrelated to each other tools.
 
-Since most of them are written in javascript, github-pages for this repository is enabled
+Many tools from this respository are availible through github-pages.
 
 ---
 
@@ -44,13 +44,21 @@ to reassemble project back into `.sb3`. File creation dates are preserved.
 
 #### [MassDownloader](https://github.com/Xeltalliv/ScratchTools/tree/main/MassDownloader)
 
-A python script to download all projects, ids of which are listed in all.txt.
-2 bash scripts to extract project ids from user activity api and remixtree api.
+A set of tools, which you can use to prepare yourself for scratch removing ability to view unshared projects.
+It includes:
+- A python script to download all projects, ids of which are listed in `all.txt` file.
+- 2 bash scripts to extract project ids from user activity api and remixtree api.
 
+Asset downloading is disabled by default, because it isn't going to be restricted (at least yet).
+Once you are done downloading project jsons, you may want to compress them by doing:
+```
+tar cvf jsons.tar jsons
+xz -9 jsons.tar
+```
 
 #### [WadToScratchImporter](https://xeltalliv.github.io/ScratchTools/WadToScratchImporter/)
 
-A tool for importing `.wad` files of [idTech1](https://en.wikipedia.org/wiki/Doom_engine) besed games to a recreation of this engine in scratch.
+A tool for automatically importing `.wad` files of [idTech1](https://en.wikipedia.org/wiki/Doom_engine) based games to Vadik1's recreation of this engine in scratch.
 
 ---
 
