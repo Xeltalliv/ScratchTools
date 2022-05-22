@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "" > all.list
+
+for i in *.txt; do
+    [ -f "$i" ] || break
+	echo "" >> all.list
+	echo "From $i" >> all.list
+	jq -r 'keys[]' "$i" | sort -rg | uniq >> all.list
+done
