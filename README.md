@@ -42,6 +42,12 @@ to disassemble all `.sb3` files in the folder to this space efficient representa
 to reassemble project back into `.sb3`. File creation dates are preserved.
 
 
+#### [MassDownloader](https://github.com/Xeltalliv/ScratchTools/tree/main/MassDownloader)
+
+A python script to download all projects, ids of which are listed in all.txt.
+2 bash scripts to extract project ids from user activity api and remixtree api.
+
+
 #### [WadToScratchImporter](https://xeltalliv.github.io/ScratchTools/WadToScratchImporter/)
 
 A tool for importing `.wad` files of [idTech1](https://en.wikipedia.org/wiki/Doom_engine) besed games to a recreation of this engine in scratch.
