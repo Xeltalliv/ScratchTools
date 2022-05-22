@@ -10,6 +10,11 @@
 			<span class=title>Scratch 3 project.json minimizer</title>
 		</div>
 		<div class=inb>
+			<div class=warning>
+				<span class=warningTitle>Warning</span>
+				<br>
+				Currently compressing project that was already compressed is not recomended as it might <a href=https://scratch.mit.edu/users/GarboMuffin/#comments-202887976>corrupt it</a>. I know what causes this bug and how to fix it, but fixing it would require rewriting most of the code, which I currently don't have time for.
+			</div>
 			<div class=buttonHolder><input type=text placeholder="Project URL or id here" id=urlInput class=urlInput><button onclick=Loader.loadFromUrl() id=loadFromUrl>Load from URL</button><div class=divider></div><button onclick=Loader.loadFromFile() id=loadFromFile>Select local file</button></div>
 			<span id=importError class=redText></span>
 			<hr>
