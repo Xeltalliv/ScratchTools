@@ -10,17 +10,21 @@ button{
 	color: white;
 	box-shadow: 2px 2px 4px #00000055;
 	transition: all 100ms ease-out;
+	cursor: pointer;
 }
 button:hover{
 	background-color: #6db7ff;
 }
 button:disabled{
 	background-color: #aaaaaa;
+	cursor: not-allowed;
 }
 .urlInput{
 	flex: 1;
 	border-radius: 5px;
 	border: 2px solid #aaaaaa;
+	height: 34px;
+	padding: 1px;
 }
 .divider{
 	background-color: #aaaaaa;
@@ -29,6 +33,7 @@ button:disabled{
 }
 .buttonHolder{
 	display: flex;
+	flex-wrap: wrap;
 }
 .file{
 	opacity: 0;
@@ -44,14 +49,14 @@ button:disabled{
 	text-align: left;
 	display: inline-block;
 	background-color: #ffffff;
-	width: 600px;
+	max-width: 600px;
 	border: 1px solid #e2e2e2;
 	border-radius: 5px;
 	margin: 30px 0 0 0;
 	padding: 15px;
 }
 body{
-	min-width: 640px;
+	/*min-width: 640px;*/
 	background-color: #f2f2f2;
 	text-align: center;
 	margin: 0;
@@ -62,17 +67,20 @@ body{
 	user-select: none; /* Standard */
 }
 .title{
-	position: relative;
-	top:50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .uppertext{
+	display: flex;
+	justify-content: center;
 	background-color: #4d97ff;
-	height: 150px;
+	min-height: 150px;
 	text-align: center;
 	font-size: 45px;
+	width: 100%;
 	font-weight: bold;
 	color: white;
-	bottom-border: 1px solid #1a3864;
 }
 .total{
 	width: 100%;
