@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Compiler</title>
+		<link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+		<div class=uppertext>
+			<span class=title>Text to scratch compiler</title>
+		</div>
+		<div class=inb>
+			<div class=buttonHolder><button onclick=openDirPicker() id=dirPickerButton title="Pick directory containing files and other directories that will be scanned using Chrome's FileSystem API.">Pick directory</button><button disabled onclick=importZip() id=importZipButton title="Not implemented yet. Sorry non-Chrome users">Import zip</button><div class=divider></div><button disabled onclick=compile() id=compileButton title="Please provide files to compile using one of 2 buttons on the left">Compile</button></div>
+			<span id=importError class=redText></span>
+			<hr>
+			<div class=log id=log>
+			</div>
+			<span id=waitForDownload style="display:none;">(Please wait. The download of compressed file should start soon)</span>
+			<input type=file class=hidden id=filePicker accept=".zip">
+		</div>
+		<br>
+		<br>
+		<a href=guide.html>Language syntax guide</a><br>
+		<a href=https://scratch.mit.edu/users/Vadik1/>Vadik1 on Scratch</a> | <a href=https://github.com/Xeltalliv/ScratchTools/blob/main/README.md>Other tools</a> | <a href=https://github.com/Xeltalliv/ScratchTools/tree/main/ProgLang>Source code</a>
+		<script src=../vendor/JSZip/jszip.js></script>
+		<script src=../vendor/FileSaver/FileSaver.js></script>
+
+		<script src=tokenizer.js></script>
+		<script src=syntax.js></script>
+		<script src=parser.js></script>
+		<script src=methodCompiler.js></script>
+		<script src=linker.js></script>
+		<script src=template.js></script>
+		<script src=scratchEmitter.js></script>
+		<script src=main.js></script>
+	</body>
+</html>
