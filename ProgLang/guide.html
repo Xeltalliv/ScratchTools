@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Compiler guide</title>
-		<link rel="stylesheet" href="style.css"/>
+		<link rel="stylesheet" href="style.css?5"/>
     </head>
     <body>
 		<div class=uppertext>
@@ -17,19 +17,20 @@
 			<p>Before usage, compiler needs to be provided with what to compile. It can be done in one of 2 ways:</p>
 			<ul>
 				<li>By providing access to directory with files directly, which is a recomended option, but it isn't supported in every browser.</li>
-				<li><s>By importing a zip containing all of the files and directories</s></li>
+				<li>By importing a zip containing all of the files and directories</li>
 			</ul>
-			<p>After that, the "Compile" button should be clicked. The compiler will recursively go through all subdirectories and find files that end with <span class=box>.js</span> which it will later try to compile. It will also look for files called <span class=box>exportList.txt</span> and <span class=box><s>template.sb3</s></span>.</p>
-			<p><s>The project that the compiler will generate will consist of what is in the <span class=box><s>template.sb3</s></span> combined with newly generated code.</s></p>
+			<p>After that, the "Compile" button should be clicked. The compiler will recursively go through all subdirectories and find files that end with <span class=box>.js</span> which it will later try to compile. It will also look for files called <span class=box>exportList.txt</span>, <span class=box>Compiled.sb3</span> and <span class=box><s>template.sb3</s></span>.</p>
 			<p><span class=box>exportList.txt</span> is used to describe which functions should be placed to which sprites. If specified function relies on some other un-specified functions, those will also be included automatically.</p>
+			<p><span class=box>Compiled.sb3</span> if exists, would automatically be overwritten with the compilation output without prompting user to save the file.</p>
+			<p><s><span class=box><s>template.sb3</s></span> will be used as a base for newly generated project.</s></p>
 			<h2>Language syntax</h2>
 			<p>In most cases amount of spaces and placement of newlines doesn't matter.</p>
 			<p><span class=box>//</span> can be used to mark the rest of the line as comment.<br>
 			<span class=box>/*</span> can be used to start a multiline comment.<br>
 			<span class=box>*/</span> can be used to end a multiline comment.</p>
-			Each file starts in outer descriptions mode.
+			<p>Each file starts in outer descriptions mode.</p>
 			<h3>Outer descriptions</h3>
-			In this mode the following structures can be used:
+			<p>In this mode the following structures can be used:</p>
 			<p><span class=box>variable YourVariableNameHere;</span> is used to create a variable. Multiple variables can be created using a single keyword by using commas:<span class=box>variable Variable1, Variable2, Variable3;</span></p>
 			<p><span class=box>list YourListNameHere;</span> is used to create a list. Multiple lists can be created using a single keyword by using commas:<span class=box>list List1, List2, List3;</span></p>
 			<p><span class=box>listoffsets YourListNameHere YourListOffsetHere;</span> is used to define a step size for the list.</p>
@@ -40,8 +41,7 @@
 			<p><span class=box>function FunctionNameHere() {}</span> is used to define functions - the things that actually contain code. Inside of the round brackets the list of arguments separated by commas is defined. In figure brackets the actual code is defined.</p>
 			<p><span class=box>inline function FunctionNameHere() {}</span> is used to define inline functions. They can also have arguments. They are like normal functions, but they get pasted into the place they are called from. Here they can be used for either stack blocks or reporter blocks.</p>
 			<p>Here is an example code:</p>
-			<textarea readonly class=code style="height: 400px;">
-variable valueToAdd;
+			<textarea readonly class=code rows=26 wrap=off>variable valueToAdd;
 list TheFirstList, TheSecondList;
 namespace Math {
 	variable OUTPUT;
@@ -66,10 +66,9 @@ namespace Main {
 			Pen.setSize(to);
 		}
 	}
-}
-			</textarea>
+}</textarea>
 			<p>Which compiles into:</p>
-			<img src=guide1.png></img>
+			<div class=imgBox><img src=images/guide1.png></img></div>
 			<h3>Inner code</h3>
 			<p>Inner code refers to anything within function definition and there is a lot to cover.</p>
 			<p><span class=box>=</span> can be used to set variables or list elements to some value. What needs to be changed is on the left, where to take value from is on the right.</p>
@@ -89,50 +88,41 @@ namespace Main {
 			<p><span class=box>1234.567</span> numbers are written directly.</p>
 			<p><span class=box>list[item]</span> square brackets can be used to access specific element of the list.</p>
 			<p><span class=box>list[item]#offsetName</span> this could be hard to explain, but code example may help. This:</p>
-			<textarea readonly class=code style="height: 130px;">
-list Vector3D;
+			<textarea readonly class=code rows=8 wrap=off>list Vector3D;
 listoffsets Vector3D 3 {x:1, y:2, z:3};
 
 function printCoords(vec) {
 	print(Vector3D[vec]#x);
 	print(Vector3D[vec]#y);
 	print(Vector3D[vec]#z);
-}
-			</textarea>
+}</textarea>
 			<p>is just a cleaner way of writing this:</p>
-			<textarea readonly class=code style="height: 120px;">
-list Vector3D;
+			<textarea readonly class=code rows=7 wrap=off>list Vector3D;
 
 function printCoords(vec) {
 	print(Vector3D[vec+1]);
 	print(Vector3D[vec+2]);
 	print(Vector3D[vec+3]);
-}
-			</textarea>
+}</textarea>
 			<p><span class=box>list[item]#offsetAmount</span> same, but instead of using names, it has a numeric offset directly. At first glance it may seem useless, but in combination with some other features of this programming language it becomes really usefull.</p>
 			<h3>Local things</h3>
 			<p>There exists 4 types of local things defined by keywords: <span class=box>const</span>, <span class=box>let</span>, <span class=box>lst</span>, <span class=box>sal</span> (and a 5th type which is function arguments).
 			<p>All 4 support defining multiple at once by separating with commas.</p>
 			<p><span class=box>const name=value;</span> constants. Works the same as outside functions, except here they can handle multi-token expressions. Doing something like this is totally valid:</p>
-			<textarea readonly class=code style="height: 100px;">
-variable globVar;
+			<textarea readonly class=code rows=6 wrap=off>variable globVar;
 
 function do() {
 	const ten = 30 / 3, sqr = globVar * globVar;
 	Pen.setSize(sqr, ten);
-}
-			</textarea>
+}</textarea>
 			<p>And it will behave as if it was:</p>
-			<textarea readonly class=code style="height: 90px;">
-variable globVar;
+			<textarea readonly class=code rows=5 wrap=off>variable globVar;
 
 function do() {
 	Pen.setSize(globVar * globVar, 30 / 3);
-}
-			</textarea>
+}</textarea>
 			<p>This is also where named <span class=box>#</span> and numeric <span class=box>#</span> become really useful:</p>
-			<textarea readonly class=code style="height: 200px;">
-list Vector3D;
+			<textarea readonly class=code rows=13 wrap=off>list Vector3D;
 listoffsets Vector3D 3 {x:1, y:2, z:3};
 list Matrix3x3;
 listoffsets Matrix3x3 9;
@@ -144,18 +134,16 @@ function mulMatByVec(mat, vec, vec2) {
 	out#x = v#x * m#0 + v#y * m#1 + v#z * m#2;
 	out#y = v#x * m#3 + v#y * m#4 + v#z * m#5;
 	out#z = v#x * m#6 + v#y * m#7 + v#z * m#8;
-}
-			</textarea>
+}</textarea>
 			<p>That code will compile into:</p>
-			<div class=imgBox><img src=guide2.png></img></div>
+			<div class=imgBox><img src=images/guide2.png></img></div>
 
 			<p><span class=box>let name;</span> or <span class=box>let name=value;</span> local variables. When compiled, all of them get assigned name that starts with letter s followed by a number. For each function numbers start from 0 and for every local variable go up by 1. During linking stage, variable numbers get shifted up to avoid conflicts.</p>
 			<p><span class=box>lst name;</span> local lists. Work exactly like local variables, except can't be assigned a value directly.</p>
 			<p><span class=box>sal ListNameHere SalName;</span> is for statically allocated list positions. Interesting fact is that local variables can be workarounded through <span class=box>sal</span>. In fact in code <span class=box>let</span> and <span class=box>lst</span> are just extensions built on top of <span class=box>sal</span> system.</p>
 			<p>Let's assume you store some structured data in list. Each element defined by you takes up a fixed amount of actual list elements. Some of your elements get created and deleted dynamically while program is running and that is simle to implement. However some of those your elements need to be temporarily used during computations. Dynamically allocating them, doing computation and deleting them seems too computationally expensive. A much better solution would be to just reserve some parts of list and just once hardcode what part of code can use what space in list reserved for it without conflicting with other parts of the code. However doing it manually is very tedious, and in large project is unfeasable. Sal does that automatically.</p>
 			<p>The most common example of how it can be used is for vector, matrix and quaternion operations, where you would probably want to have "local variables" to temporarily store those during calculations and discard them after computation is done. So on example:</p>
-			<textarea readonly class=code style="height: 200px;">
-list Vector3D;
+			<textarea readonly class=code rows=11 wrap=off>list Vector3D;
 listoffsets Vector3D 3 {x:1, y:2, z:3};
 
 function main(a, b, c, d, e, f, output) {
@@ -165,8 +153,7 @@ function main(a, b, c, d, e, f, output) {
 	VectorAdd(a, crossBC, sumA);
 	VectorAdd(d, crossEF, sumD);
 	VectorSub(sumA, sumD, output);
-}
-			</textarea>
+}</textarea>
 			<p>In this example list Vector3D has a step of 3. This means that sal will set crossBC = 0, crossEF = 3, sumA = 6, sumD = 9. If function "main" is called from somewhere else, and that somewhere else for example also has 2 sal of Vector3D, then sal here during linking process will get shifted into crossBC = 6, crossEF = 9, sumA = 12, sumD = 15. It will literally just insert those number into places where sal "variable" is refferenced.</p>
 			<h3>Branching</h3>
 			<p> By default those will only take 1 operation, but {} can be used for multiple operations. Like in most other languages</p>
@@ -177,10 +164,10 @@ function main(a, b, c, d, e, f, output) {
 			<p><span class=box>until(conditionHere) actionHere</span></p>
 			<p><span class=box>repeat(amountOfTimes) actionHere</span></p>
 			<p><span class=box>for(variable; amountOfTimes) actionHere</span> uses scratch's hidden for each loop. In variable you can either reference one of the existing variables (using dot syntax it it is in other namespace), or you can start variable by <span class=box>let</span> and then it will be created and only accesible within the for loop. Outside that for loop, compiler might decided to reuse the same actual scratch variable for something else even within the same function.</p>
-			<textarea readonly class=code style="height: 230px;">
-namespace A {
+			<textarea readonly class=code rows=16 wrap=off>namespace A {
 	variable var1;
 }
+
 function forLoops() {
 	let var2;
 	for(A.var1; 10) {
@@ -192,8 +179,7 @@ function forLoops() {
 	for(let var3; 10) {
 		print(var3);
 	}
-}
-			</textarea>
+}</textarea>
 			<h3>In function scoping</h3>
 			<p><span class=box>{ }</span> creates a new scope for anything inside. <span class=box>const</span>, <span class=box>let</span>, <span class=box>lst</span>, <span class=box>sal</span> defined inside do not exist on the outside.</p>
 
@@ -213,7 +199,6 @@ function forLoops() {
 			<p><span class=box>Pen.clear()</span>, <span class=box>Pen.down()</span>, <span class=box>Pen.up()</span>, <span class=box>Pen.setSize(size)</span>, <span class=box>Pen.moveTo(x, y)</span></p>
 
 			<p>Naming function "whenFlagClicked" turns it into when flag clicked block when compiled instead of custom block definition.</p>
-
 			<h2>exportList.txt syntax</h2>
 			Each entry is written on a new line. Each line starts with the sprite name followed by a single space, followed by the dot separated path to the function. If line has more or less than 1 space, it will be skipped. Lines that start with # are also skipped. If line is <span class=box>#stop</span>, lines after it are not processed. If path points to <span class=box>*</span> inside of some namespace, it will recursively find and mark all functions inside that namespace.</p>
 		</div>

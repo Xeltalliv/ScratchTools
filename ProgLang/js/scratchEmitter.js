@@ -16,8 +16,16 @@ class ScratchEmitter {
 		//document.body.innerHTML = "<textarea>"+JSON.stringify(json, null, 4)+"</textarea>";
 		let zip = new JSZip();
 		zip.file("project.json", JSON.stringify(json));
-		zip.generateAsync({type:"blob"}).then(function(content) {
-			saveAs(content, "Compiled.sb3");
+		zip.generateAsync({type:"blob"}).then(async function(content) {
+			if(dirHandle && outputHandle) {
+				Visual.log("Done. File Compiled.sb3 is automatically overwritten");
+				const writable = await outputHandle.createWritable();
+				await writable.write(content);
+				await writable.close();
+			} else {
+				Visual.log("Done. Please wait. The download of sb3 should start soon");
+				saveAs(content, "Compiled.sb3");
+			}
 		});
 	}
 	emitVarsLists(vars, lists, ns) {

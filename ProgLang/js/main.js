@@ -18,7 +18,8 @@ var exportList;
 var listReserved;
 var gotError;
 var fileName;
-
+var srcZip;
+var outputHandle;
 var dirHandle;
 
 var Elements = {
@@ -28,6 +29,25 @@ var Elements = {
 	log: document.getElementById("log"),
 	importError: document.getElementById("importError"),
 	waitForDownload: document.getElementById("waitForDownload"),
+	filePicker: document.getElementById("filePicker"),
+}
+
+if(!window.showDirectoryPicker) {
+	Elements.dirPickerButton.disabled = true;
+	Elements.dirPickerButton.title = "Not supported in your browser";
+}
+
+Elements.filePicker.onchange = async function(e) { 
+	let file = e.target.files[0]; 
+	if(!file) return;
+	Elements.filePicker.value = null;
+	srcZip = await JSZip.loadAsync(file);
+	if(srcZip) dirHandle = null;
+	if(dirHandle || srcZip) {
+		Elements.compileButton.removeAttribute("disabled");
+	} else {
+		Elements.compileButton.setAttribute("disabled", 1);
+	}
 }
 
 
@@ -53,44 +73,42 @@ async function openDirPicker() {
 	try {
 		dirHandle = await window.showDirectoryPicker();
 	} catch(e) {};
-	if(dirHandle) {
+	if(dirHandle) srcZip = null;
+	if(dirHandle || srcZip) {
 		Elements.compileButton.removeAttribute("disabled");
 	} else {
 		Elements.compileButton.setAttribute("disabled", 1);
 	}
 }
 
+async function importZip() {
+	Elements.filePicker.click();
+}
+
 async function compile() {
-	if(!dirHandle) return;
+	if(!dirHandle && !srcZip) return;
 	resetAll();
 	Elements.log.innerText = "";
 	Visual.log("Starting compilation...");
 
 	// Recursively go through files and find correct ones
-	let files = [];
-	await getFiles(dirHandle, files);
-	if(exportList) {
-		Visual.log("Found 'exportList.txt'");
-		exportList = await (await exportList.getFile()).text();
-	} else {
-		Visual.log("'exportList.txt' is missing. Exporting everything to the first sprite");
-	}
+	let files = dirHandle ? await scanFilesFSAPI(dirHandle) : await scanFilesJSZIP(srcZip);
 
 	for(let file of files) {
 		// Read text file contents
-		fileName = file.handle.name;
-		let f = await file.handle.getFile();
-		source = await f.text();
+		if(dirHandle) await fileContentFSAPI(file);
+		else await fileContentJSZIP(file)
 
 		// Turn text into token tree
 		let tokens = tokenizeMain(0);
-		Visual.log("  parsing file "+file.handle.name);
+		Visual.log("  parsing file "+file.name);
 		if(gotError) return;
 
 		// Parse everything outside functions
 		parser.parse(tokens, "main");
 		if(gotError) return;
 	}
+
 	// Parse (but not compile) inline functions
 	Visual.log("Compiling inline functions:");
 	methodCompiler.compileInliners(globalNamespace);
@@ -107,17 +125,53 @@ async function compile() {
 
 	// Generate sb3
 	scratchEmitter.emitAll();
-	if(gotError) return;
-	Visual.log("Done. Please wait. The download of sb3 should start soon");
 	//scratchblocksEmitter.emitAll();
 }
 
 async function getFiles(handle, files) {
 	for await (const entry of handle.values()) {
 		if(entry.kind == "directory") await getFiles(entry, files);
-		if(entry.kind == "file" && entry.name.endsWith(".js")) files.push({"handle": entry});
+		if(entry.kind == "file" && entry.name.endsWith(".js")) files.push(entry);
 		if(entry.kind == "file" && entry.name == "exportList.txt") exportList = entry;
+		if(entry.kind == "file" && entry.name == "Compiled.sb3") outputHandle = entry;
 	}
+}
+
+async function scanFilesFSAPI(handle) {
+	let files = [];
+	await getFiles(dirHandle, files);
+	if(exportList) {
+		Visual.log("Found 'exportList.txt'");
+		exportList = await (await exportList.getFile()).text();
+	} else {
+		Visual.log("'exportList.txt' is missing. Exporting everything to the first sprite");
+	}
+	return files;
+}
+
+async function scanFilesJSZIP(handle) {
+	let files = [];
+	handle.forEach(function (relativePath, entry) {
+		if(!entry.dir && entry.name.endsWith(".js")) files.push(entry);
+		if(!entry.dir && entry.name.split("/").at(-1) == "exportList.txt") exportList = entry;
+	});
+	if(exportList) {
+		Visual.log("Found 'exportList.txt'");
+		exportList = await exportList.async("string");
+	} else {
+		Visual.log("'exportList.txt' is missing. Exporting everything to the first sprite");
+	}
+	return files;
+}
+
+async function fileContentFSAPI(file) {
+	fileName = file.name;
+	source = await (await file.getFile()).text();
+}
+
+async function fileContentJSZIP(file) {
+	fileName = file.name;
+	source = await file.async("string");
 }
 
 function genId() {

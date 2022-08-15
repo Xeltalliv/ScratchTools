@@ -11,7 +11,7 @@
 			<span class=title>Text to scratch compiler</title>
 		</div>
 		<div class=inb>
-			<div class=buttonHolder><button onclick=openDirPicker() id=dirPickerButton title="Pick directory containing files and other directories that will be scanned using Chrome's FileSystem API.">Pick directory</button><button disabled onclick=importZip() id=importZipButton title="Not implemented yet. Sorry non-Chrome users">Import zip</button><div class=divider></div><button disabled onclick=compile() id=compileButton title="Please provide files to compile using one of 2 buttons on the left">Compile</button></div>
+			<div class=buttonHolder><button onclick=openDirPicker() id=dirPickerButton title="Pick directory containing files and other directories that will be scanned using Chrome's File System Access API">Pick directory</button><button onclick=importZip() id=importZipButton title="Pick a zip containing the files. Use if the first option isn't supported">Import zip</button><div class=divider></div><button disabled onclick=compile() id=compileButton title="Please provide files to compile using one of 2 buttons on the left">Compile</button></div>
 			<span id=importError class=redText></span>
 			<hr>
 			<div class=log id=log>
@@ -26,13 +26,13 @@
 		<script src=../vendor/JSZip/jszip.js></script>
 		<script src=../vendor/FileSaver/FileSaver.js></script>
 
-		<script src=tokenizer.js></script>
-		<script src=syntax.js></script>
-		<script src=parser.js></script>
-		<script src=methodCompiler.js></script>
-		<script src=linker.js></script>
-		<script src=template.js></script>
-		<script src=scratchEmitter.js></script>
-		<script src=main.js></script>
+		<script src=js/tokenizer.js></script>
+		<script src=js/syntax.js></script>
+		<script src=js/parser.js></script>
+		<script src=js/methodCompiler.js></script>
+		<script src=js/linker.js></script>
+		<script src=js/template.js></script>
+		<script src=js/scratchEmitter.js></script>
+		<script src=js/main.js></script>
 	</body>
 </html>
