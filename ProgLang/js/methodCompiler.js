@@ -257,7 +257,7 @@ var MC = {
 		if(me[2] == "false") return [me[0], "#bool", false];
 		let elem = currentNamespace[me[2]] ?? currentOuterNamespace[me[2]] ?? globalNamespace[me[2]];
 		if(!elem) {
-			error("'"+me[2]+"' is not defined.", me[0]);
+			error("'"+me[2]+"' is not defined"+didYouMean(me[2], [...Object.keys(currentNamespace), ...Object.keys(currentOuterNamespace), ...Object.keys(globalNamespace)]), me[0]);
 			return [me[0], "#string", "invalid identifier"]
 		}
 		if(elem.type === "constant") {
@@ -350,7 +350,7 @@ var MC = {
 		let elem = namespace[arg2[2]];
 		if(!elem) {
 //			console.log("Searching", arg2[2], "in", namespace, ". Found nothing.")
-			return error("'"+me[2][2]+"' is not defined.", arg2[0]);
+			return error("'"+arg2[2]+"' is not defined"+didYouMean(arg2[2], namespace), arg2[0]);
 		}
 		if(elem.type === "constant") {
 			let copy = elem.value.slice();
