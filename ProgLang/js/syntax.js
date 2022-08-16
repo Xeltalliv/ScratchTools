@@ -362,11 +362,15 @@ parser "code":
 
 		find:
 			identifier "lst" -> "lst"
-			identifier => "names"
+			or:
+				identifier => "names"
+				custom "#operator=" => "names"
 			optional:
 				repeat:
 					separator ","
-					identifier => "names"
+					or:
+						identifier => "names"
+						custom "#operator=" => "names"
 		javascript "varsLst"
 		replace:
 			var "jsOutput"
@@ -732,7 +736,7 @@ function varsLst(vars) {
 	vars.original.jsOutput = [
 		vars.original.lst[0],
 		"#lst",
-		vars.names
+		vars.original.names
 	];
 }
 
@@ -769,6 +773,9 @@ function getLocalList(name) {
 			"fullName": name,
 			"type": "list",
 			"id": genId(),
+			"step": 1,
+			"offsets": {},
+			"reserved": 0,
 		}
 	}
 	return globalNamespace[name];

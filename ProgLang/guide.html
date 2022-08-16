@@ -71,7 +71,7 @@ namespace Main {
 			<div class=imgBox><img src=images/guide1.png></img></div>
 			<h3>Inner code</h3>
 			<p>Inner code refers to anything within function definition and there is a lot to cover.</p>
-			<p><span class=box>=</span> can be used to set variables or list elements to some value. What needs to be changed is on the left, where to take value from is on the right.</p>
+			<p><span class=box>=</span> can be used to set variables or list elements to some value. What needs to be changed is on the left, where to take value from is on the right. It is also possible to set the contents of entire list using: <span class=box>list = [value1, value2, value3]</span></p>
 			<p><span class=box>+=</span>, <span class=box>-=</span>, <span class=box>*=</span>, <span class=box>/=</span> can be used to modify values on the left in specified way.</p>
 			<p><span class=box>+</span>, <span class=box>-</span>, <span class=box>*</span>, <span class=box>/</span>, <span class=box>%</span> can be used to perform mathematical operations. First value should be on the left and the second on the right. % is mod operator. If left value of <span class=box>-</span> is missing, 0 will automatically be inserted. <span class=box>*</span>, <span class=box>/</span>, <span class=box>%</span> have higher priority than <span class=box>+</span>, <span class=box>-</span></p>
 			<p><span class=box>&gt;</span> comparathon if value on the left is greater than on the right.</p>
@@ -139,7 +139,7 @@ function mulMatByVec(mat, vec, vec2) {
 			<div class=imgBox><img src=images/guide2.png></img></div>
 
 			<p><span class=box>let name;</span> or <span class=box>let name=value;</span> local variables. When compiled, all of them get assigned name that starts with letter s followed by a number. For each function numbers start from 0 and for every local variable go up by 1. During linking stage, variable numbers get shifted up to avoid conflicts.</p>
-			<p><span class=box>lst name;</span> local lists. Work exactly like local variables, except can't be assigned a value directly.</p>
+			<p><span class=box>lst name;</span>,<span class=box>lst name=[];</span>  or <span class=box>lst name=[commaSeparatedValues];</span> local lists. Work exactly like local variables. By default they keep the old garbage data from somewhere else. Using =[] clears them. Optionally things can be listed inside [], which will sequentially get added after clearing.</p>
 			<p><span class=box>sal ListNameHere SalName;</span> is for statically allocated list positions. Interesting fact is that local variables can be workarounded through <span class=box>sal</span>. In fact in code <span class=box>let</span> and <span class=box>lst</span> are just extensions built on top of <span class=box>sal</span> system.</p>
 			<p>Let's assume you store some structured data in list. Each element defined by you takes up a fixed amount of actual list elements. Some of your elements get created and deleted dynamically while program is running and that is simle to implement. However some of those your elements need to be temporarily used during computations. Dynamically allocating them, doing computation and deleting them seems too computationally expensive. A much better solution would be to just reserve some parts of list and just once hardcode what part of code can use what space in list reserved for it without conflicting with other parts of the code. However doing it manually is very tedious, and in large project is unfeasable. Sal does that automatically.</p>
 			<p>The most common example of how it can be used is for vector, matrix and quaternion operations, where you would probably want to have "local variables" to temporarily store those during calculations and discard them after computation is done. So on example:</p>
@@ -208,7 +208,7 @@ function forLoops() {
 		</div>
 		<br>
 		<br>
-		<br>
+		<a href=index.html>Go back to compiler</a><br>
 		<a href=https://scratch.mit.edu/users/Vadik1/>Vadik1 on Scratch</a> | <a href=https://github.com/Xeltalliv/ScratchTools/blob/main/README.md>Other tools</a> | <a href=https://github.com/Xeltalliv/ScratchTools/tree/main/ProgLang>Source code</a>
 	</body>
 </html>

@@ -218,6 +218,28 @@ var MC = {
 		if(arg1[1] == "#variable") {
 			return [arg2[0], "#setVariable", arg1, arg2];
 		}
+		if(arg1[1] == "#list") {
+			let inline = [];
+			if(arg2[1] !== "#square") return error("Lists can only be assigned to []", arg2[0]);
+			inline.push([arg2[0], "#listClear", arg1]);
+			let found = null;
+			for(let cur of arg2[2]) {
+				if(!(cur[1] === "#separator" && cur[2] === "\n")) {
+					if(found) {
+						return error("More than 1 token inside []", found[0]);
+					} else {
+						found = cur;
+					}
+				}
+			}
+			if(found) {
+				let values = t.unroll(t, found);
+				for(let value of values) {
+					inline.push([value[0], "#listPush", arg1, t.exec(t, value)]);
+				}
+			}
+			return [arg2[0], "#inline", inline];
+		}
 		if(arg1[1] == "#argument") return error("Arguments are constant and can't be changed.", me[0]);
 		return error("Left argument of '=' is in some way invalid.", me[0]);
 	},
@@ -631,10 +653,17 @@ var MC = {
 		return [me[0], "#inline", inline];
 	},
 	"#lst": function(t, me) {
+		let inline = [];
 		let names = me[2];
 		let lib = currentNamespace["#"];
 		if(!lib.has("#lst")) lib.set("#lst", 0);
-		for(let name of names) {
+		for(let elem of names) {
+			let name;
+			if(elem[1] == "#operator=") {
+				name = elem[2][2];
+			} else {
+				name = elem[2];
+			}
 			let varName = "list "+(lib.get("#lst") || 0);
 			let varObj = getLocalList(varName);
 			let num = [0, "#list", varName, varObj.id, varObj];
@@ -645,8 +674,9 @@ var MC = {
 			}
 			currentFunction.sals.push({"type": "#lst", "value": num});
 			lib.set("#lst", lib.get("#lst")+1);
+			if(elem[1] == "#operator=") inline.push(...t.emit([elem]));
 		}
-		return null;
+		return [me[0], "#inline", inline];
 	},
 	"#doubleQuotes": function(t, me) {
 		return [me[0], "#string", me[2]];
@@ -655,6 +685,9 @@ var MC = {
 		return [me[0], "#string", me[2]];
 	},
 	"#return": function(t, me) {
+		return me;
+	},
+	"#square": function(t, me) {
 		return me;
 	},
 }
