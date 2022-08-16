@@ -69,6 +69,7 @@ body{
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+/Edge */
 	user-select: none; /* Standard */
+	transition: all 100ms ease-out;
 }
 .title{
 	display: flex;
@@ -89,7 +90,7 @@ body{
 .log{
 	max-width: 100%;
 	min-height: 100px;
-	max-height: 500px;
+	max-height: 400px;
 	border-radius: 5px;
 	border: 1px solid #888888;
 	background-color: #eeeeee;

@@ -26,6 +26,7 @@ class ScratchEmitter {
 				Visual.log("Done. Please wait. The download of sb3 should start soon");
 				saveAs(content, "Compiled.sb3");
 			}
+			document.body.style["background-color"] = "#ccf2cc";
 		});
 	}
 	emitVarsLists(vars, lists, ns) {

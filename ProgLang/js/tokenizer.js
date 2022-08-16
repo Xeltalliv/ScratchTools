@@ -203,6 +203,7 @@ var Visual = {
 	},
 	error: function(msg) {
 		gotError = true;
+		document.body.style["background-color"] = "#f2cccc";
 		let log = document.createElement("div");
 		let text = document.createElement("pre");
 		text.classList.add("fixPre");
