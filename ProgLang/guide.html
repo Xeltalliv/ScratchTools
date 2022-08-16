@@ -187,6 +187,8 @@ function forLoops() {
 			<p><span class=box>+</span> and <span class=box>-</span> are reordered and constant values are preprocessed. If you write <span class=box>a+6-7+11</span>, the compiled sb3 will only have <span class=box>a+10</span>. If you write <span class=box>-a+b</span> the compiler will reorder it to <span class=box>b-a</span>.</p>
 
 			<h3>Built-in functions and properties</h3>
+			<p><span class=box>return</span> gets compiled into [stop [this script]]. Unlike in other languages, doesn't actually return any value.</p>
+
 			<p><span class=box>YourListHere.length</span> length of the list.</p>
 			<p><span class=box>YourListHere.reserved</span> amount of list elements reserved by sal variables.</p>
 			<p><span class=box>YourListHere.push(value)</span> adds value to the list. Can have multiple arguments.</p>
