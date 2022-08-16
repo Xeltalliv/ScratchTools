@@ -131,7 +131,7 @@ async function compile() {
 async function getFiles(handle, files) {
 	for await (const entry of handle.values()) {
 		if(entry.kind == "directory") await getFiles(entry, files);
-		if(entry.kind == "file" && entry.name.endsWith(".js")) files.push(entry);
+		if(entry.kind == "file" && entry.name.endsWith(".vspl")) files.push(entry);
 		if(entry.kind == "file" && entry.name == "exportList.txt") exportList = entry;
 		if(entry.kind == "file" && entry.name == "Compiled.sb3") outputHandle = entry;
 	}
