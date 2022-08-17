@@ -163,6 +163,14 @@ parser "code":
 #	Priority 15
 	r_pass:
 		find:
+			operator "!"
+			any_value -> "a"
+		replace:
+			token:
+				text "#operator!"
+				var "a"
+
+		find:
 			operator "++"
 			any_value -> "a"
 		replace:

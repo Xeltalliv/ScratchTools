@@ -498,6 +498,11 @@ var MC = {
 		let arg2 = t.exec(t, me[3]);
 		return [arg2[0], "#operator||", arg1, arg2];
 	},
+	"#operator!": function(t, me) {
+		let arg1 = t.exec(t, me[2]);
+		let arg2 = t.exec(t, me[3]);
+		return [arg2[0], "#operator!", arg1, arg2];
+	},
 	"#call": function(t, me) {
 		let arg1 = t.exec(t, me[2]);
 		let unrolled = t.unroll(t, me[3]);

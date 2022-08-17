@@ -15,7 +15,7 @@ const PARSED = {
 	"varDef": 13
 }
 for(let q in PARSED) PARSED[q] = "#"+q;
-const RESERVEDCHARS = " \t\n+-*/^&%#!~()[]{};:,.<>='\"";
+const RESERVEDCHARS = " \t\n+-*/^|&%#!~()[]{};:,.<>='\"";
 const DIGITS = "0123456789";
 var i = 0;
 var source = "";
@@ -24,6 +24,7 @@ function tokenizeMain(start=0, limiter) {
 	let output = [];
 	for(i=start; i<source.length; i++) {
 		let char = source[i];
+		let nextChar = source[i+1];
 		if(char == " " || char == "\t") continue;
 		if(RESERVEDCHARS.includes(char)) {
 			if(char == limiter) {
@@ -51,6 +52,12 @@ function tokenizeMain(start=0, limiter) {
 				error("Unexpected token '}'", i);
 			} else if(char == "#") {
 				output.push([i, PARSED.operator, "#"]);
+			} else if(char == "&" && nextChar == "&") {
+				output.push([i, PARSED.operator, "&&"]);
+			} else if(char == "|" && nextChar == "|") {
+				output.push([i, PARSED.operator, "||"]);
+			} else if(char == "!") {
+				output.push([i, PARSED.operator, "!"]);
 			} else if(char == ",") {
 				output.push([i, PARSED.separator, ","]);
 			} else if(char == ".") {
@@ -62,64 +69,63 @@ function tokenizeMain(start=0, limiter) {
 			} else if(char == ":") {
 				output.push([i, PARSED.separator, ":"]);
 			} else if(char == "<") {
-				if(source[i+1] == "=") {
+				if(nextChar == "=") {
 					output.push([i, PARSED.operator, "<="]);
 					i++;
-				} else if(source[i+1] == "<") {
+				} else if(nextChar == "<") {
 					output.push([i, PARSED.operator, "<<"]);
 					i++;
 				} else {
 					output.push([i, PARSED.operator, "<"]);
 				}
 			} else if(char == ">") {
-				if(source[i+1] == "=") {
+				if(nextChar == "=") {
 					output.push([i, PARSED.operator, ">="]);
 					i++;
-				} else if(source[i+1] == ">") {
+				} else if(nextChar == ">") {
 					output.push([i, PARSED.operator, ">>"]);
 					i++;
 				} else {
 					output.push([i, PARSED.operator, ">"]);
 				}
 			} else if(char == "=") {
-				if(source[i+1] == "=") {
+				if(nextChar == "=") {
 					output.push([i, PARSED.operator, "=="]);
 					i++;
 				} else {
 					output.push([i, PARSED.operator, "="]);
 				}
 			} else if(char == "+") {
-				if(source[i+1] == "=") {
+				if(nextChar == "=") {
 					output.push([i, PARSED.operator, "+="]);
 					i++;
-				} else if(source[i+1] == "+") {
+				} else if(nextChar == "+") {
 					output.push([i, PARSED.operator, "++"]);
 					i++;
 				} else {
 					output.push([i, PARSED.operator, "+"]);
 				}
 			} else if(char == "-") {
-				if(source[i+1] == "=") {
+				if(nextChar == "=") {
 					output.push([i, PARSED.operator, "-="]);
 					i++;
-				} else if(source[i+1] == "-") {
+				} else if(nextChar == "-") {
 					output.push([i, PARSED.operator, "--"]);
 					i++;
 				} else {
 					output.push([i, PARSED.operator, "-"]);
 				}
 			} else if(char == "*") {
-				if(source[i+1] == "*") {
+				if(nextChar == "*") {
 					output.push([i, PARSED.operator, "**"]);
 					i++;
-				} else if(source[i+1] == "=") {
+				} else if(nextChar == "=") {
 					output.push([i, PARSED.operator, "*="]);
 					i++;
 				} else {
 					output.push([i, PARSED.operator, "*"]);
 				}
 			} else if(char == "/") {
-				let nextChar = source[i+1];
 				if(nextChar == "/") {
 					for(i++; i<source.length; i++) {
 						if(source[i] == "\n") break;
