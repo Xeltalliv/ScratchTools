@@ -48,6 +48,7 @@ class MethodCompiler {
 		//console.log("cns", currentNamespace);
 		elem.body = this.emit(tokens);
 		//console.log("after", elem.body);
+		//console.log(currentNamespace);
 		currentNamespace = currentOuterNamespace;
 	}
 	compileIFn(elem) {
@@ -483,6 +484,16 @@ var MC = {
 		let arg2 = t.exec(t, me[3]);
 		return [arg2[0], "#operator<", arg1, arg2];
 	},
+	"#operator>=": function(t, me) {
+		let arg1 = t.exec(t, me[2]);
+		let arg2 = t.exec(t, me[3]);
+		return [arg2[0], "#operator!", [arg2[0], "#operator<", arg1, arg2]];
+	},
+	"#operator<=": function(t, me) {
+		let arg1 = t.exec(t, me[2]);
+		let arg2 = t.exec(t, me[3]);
+		return [arg2[0], "#operator!", [arg2[0], "#operator>", arg1, arg2]];
+	},
 	"#operator==": function(t, me) {
 		let arg1 = t.exec(t, me[2]);
 		let arg2 = t.exec(t, me[3]);
@@ -614,6 +625,7 @@ var MC = {
 	},
 	"#sal": function(t, me) {
 		let type = getByPath(me[2]);
+		if(!type) return error("Attempting to make sal of something that doesn't exist.", me[2][0]);
 		if(type.type !== "list") return error("sal can only be made out of list.", me[2][0]);
 		let mul = type.step;
 		let names = me[3];
