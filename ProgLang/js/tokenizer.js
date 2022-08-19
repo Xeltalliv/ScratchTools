@@ -57,7 +57,12 @@ function tokenizeMain(start=0, limiter) {
 			} else if(char == "|" && nextChar == "|") {
 				output.push([i, PARSED.operator, "||"]);
 			} else if(char == "!") {
-				output.push([i, PARSED.operator, "!"]);
+				if(nextChar == "=") {
+					output.push([i, PARSED.operator, "!="]);
+					i++;
+				} else {
+					output.push([i, PARSED.operator, "!"]);
+				}
 			} else if(char == ",") {
 				output.push([i, PARSED.separator, ","]);
 			} else if(char == ".") {

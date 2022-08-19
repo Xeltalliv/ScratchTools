@@ -134,6 +134,9 @@ var Natives = {
 	"penMoveTo": function(obj, pos, args) {
 		return [pos, "#penMoveTo", args[0], args[1]];
 	},
+	"sensingKeyPressed": function(obj, pos, args) {
+		return [pos, "#keyPressed", args[0]];
+	},
 }
 
 var MC = {
@@ -502,6 +505,11 @@ var MC = {
 		let arg1 = t.exec(t, me[2]);
 		let arg2 = t.exec(t, me[3]);
 		return [arg2[0], "#operator==", arg1, arg2];
+	},
+	"#operator!=": function(t, me) {
+		let arg1 = t.exec(t, me[2]);
+		let arg2 = t.exec(t, me[3]);
+		return [arg2[0], "#operator!", [arg2[0], "#operator==", arg1, arg2]];
 	},
 	"#operator&&": function(t, me) {
 		let arg1 = t.exec(t, me[2]);

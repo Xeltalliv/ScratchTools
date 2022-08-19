@@ -169,6 +169,19 @@ class Block {
 		}
 		return this;
 	}
+	inputCustom(custom, name, value) {
+		if(value === undefined) throw new Error("Input value can't be undefined!");
+		if(value instanceof Block) {
+			value.block.parent = this.id;
+			value = value.id;
+		}
+		if(value === null) {
+			this.block.inputs[name] = [1, custom.id];
+		} else {
+			this.block.inputs[name] = [3, value, custom.id];
+		}
+		return this;
+	}
 	inputNullable(name, value) {
 		if(value === undefined) throw new Error("Input value can't be undefined!");
 		if(value instanceof Block) {
@@ -484,6 +497,25 @@ var SE = {
 		let block = new Block("motion_gotoxy");
 		block.input("number", "X", t.exec(t, me[2]));
 		block.input("number", "Y", t.exec(t, me[3]));
+		return block;
+	},
+	"#mouseX": function(t, me) {
+		return new Block("sensing_mousex");
+	},
+	"#mouseY": function(t, me) {
+		return new Block("sensing_mousey");
+	},
+	"#mouseDown": function(t, me) {
+		return new Block("sensing_mousedown");
+	},
+	"#keyPressed": function(t, me) {
+		let key = t.exec(t, me[2]);
+		let isVal = key instanceof Array && key[0] > 3 && key[0] < 11;
+		let options = new Block("sensing_keyoptions");
+		options.field("KEY_OPTION", isVal ? key[1] : "a");
+		options.block.shadow = true;
+		let block = new Block("sensing_keypressed");
+		block.inputCustom(options, "KEY_OPTION", isVal ? null : key);
 		return block;
 	},
 }
