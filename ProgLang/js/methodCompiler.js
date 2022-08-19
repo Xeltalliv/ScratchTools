@@ -263,6 +263,8 @@ var MC = {
 		}
 		if(elem.type === "constant") {
 			let copy = elem.value.slice();
+			let isSal = currentFunction.sals.find(e => e.value === elem.value);
+			if(isSal) currentFunction.sals.push({"type": isSal.type, "value": copy});
 			copy[0] = me[0];
 			//console.warn("COPIED1", copy);
 			if(copy[1] === "#operator+-") copy[2] = copy[2].slice();
@@ -355,6 +357,8 @@ var MC = {
 		}
 		if(elem.type === "constant") {
 			let copy = elem.value.slice();
+			let isSal = currentFunction.sals.find(e => e.value === elem.value);
+			if(isSal) currentFunction.sals.push({"type": isSal.type, "value": copy});
 			//console.warn("COPIED2", copy);
 			if(copy[1] === "#operator+-") copy[2] = copy[2].slice();
 			if(copy[1] === "#readListElement" && copy[3][1] === "#operator+-") {
