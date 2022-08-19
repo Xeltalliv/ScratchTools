@@ -60,6 +60,12 @@ xz -9 jsons.tar
 
 A tool for automatically importing `.wad` files of [idTech1](https://en.wikipedia.org/wiki/Doom_engine) based games to Vadik1's recreation of this engine in scratch.
 
+
+#### [Vadik's scratch programming language](https://xeltalliv.github.io/ScratchTools/ProgLang/)
+
+A compiler for a custom programming language `.vspl` that compiles into scratch 3 projects.
+It contains some very useful zero cost abstractions that make creation of advanced projects easier.
+
 ---
 
 ## License
