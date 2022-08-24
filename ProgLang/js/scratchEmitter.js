@@ -334,7 +334,12 @@ var SE = {
 	"#operatorMathop": function(t, me) {
 		if(me[2] === "round") {
 			let block = new Block("operator_round");
-			block.input("number", "NUM", t.exec(t, me[2]));
+			block.input("number", "NUM", t.exec(t, me[3]));
+			return block;
+		} else if(me[2] === "random") {
+			let block = new Block("operator_random");
+			block.input("number", "FROM", t.exec(t, me[3]));
+			block.input("number", "TO", t.exec(t, me[4]));
 			return block;
 		} else {
 			let block = new Block("operator_mathop");

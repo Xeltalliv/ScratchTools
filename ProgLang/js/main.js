@@ -1,7 +1,7 @@
 const DefaultTypes = ["number", "string", "boolean"];
 const ReservedWords2 = ["if", "else", "forever", "repeat", "while", "until", "for", "let", "lst", "const", "sal"];
 const ReservedWords = [...DefaultTypes, ...ReservedWords2];
-const ValidMath = ["abs", "sqrt", "sin", "cos", "tan", "asin", "acos", "atan", "floor", "ceil", "round", "randomInt", "randomFloat", "random", "pow"];
+const ValidMath = ["abs", "sqrt", "sin", "cos", "tan", "asin", "acos", "atan", "floor", "ceil", "round", "random", "pow"];
 
 var parser = new Parser(syntax, syntaxRequirements);
 var methodCompiler = new MethodCompiler();

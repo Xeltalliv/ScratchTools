@@ -147,6 +147,8 @@ function tokenizeMain(start=0, limiter) {
 				} else {
 					output.push([i, PARSED.operator, "/"]);
 				}
+			} else if(char == "%") {
+				output.push([i, PARSED.operator, "%"]);
 			}
 		} else {
 			let name = tokenizeIdentifier(i);

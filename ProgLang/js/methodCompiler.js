@@ -117,7 +117,7 @@ var Natives = {
 		return [pos, "#listIndexOf", obj.list, args[0]];
 	},
 	"mathOp": function(obj, pos, args) {
-		return [pos, "#operatorMathop", obj.name, args[0]];
+		return [pos, "#operatorMathop", obj.name, args[0], args[1]];
 	},
 	"penUp": function(obj, pos, args) {
 		return [pos, "#penUp"];
@@ -536,7 +536,7 @@ var MC = {
 		} else if(arg1[2].type === "inlineFunction") {
 			if(arg1[2].args.length !== args2.length) {
 				console.log("Provided argument list: ", args2);
-				return error("Function '"+arg1[2].fullName+"' expects "+arg1[2].args.length+" arguments", me[0]);
+				return error("Function '"+arg1[2].fullName+"' expects "+arg1[2].args.length+" arguments, but "+args2.length+" were provided", me[0]);
 			}
 			let previousNamespace = currentNamespace;
 			currentNamespace = {...previousNamespace};
@@ -548,7 +548,7 @@ var MC = {
 			//console.log("arg12", arg1[2], args2);
 			if(arg1[2].args.length !== args2.length) {
 				console.log("Provided argument list: ", args2);
-				return error("Function '"+arg1[2].fullName+"' expects "+arg1[2].args.length+" arguments", me[0]);
+				return error("Function '"+arg1[2].fullName+"' expects "+arg1[2].args.length+" arguments, but "+args2.length+" were provided", me[0]);
 			}
 			currentFunction.calls.push({"offsets": new Map(currentNamespace["#"]), "fn": arg1[2]});
 			return [me[0], "#functionCall", arg1[2], args2];
