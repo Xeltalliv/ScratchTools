@@ -36,8 +36,10 @@ let template = {
 			"name":"costume1",
 			"bitmapResolution":1,
 			"dataFormat":"svg",
-			"assetId":"592bae6f8bb9c8d88401b54ac431f7b6",
-			"md5ext":"592bae6f8bb9c8d88401b54ac431f7b6.svg",
+			"assetId":"14e46ec3e2ba471c2adfe8f119052307",
+			"md5ext":"14e46ec3e2ba471c2adfe8f119052307.svg",
+/*			"assetId":"592bae6f8bb9c8d88401b54ac431f7b6",
+			"md5ext":"592bae6f8bb9c8d88401b54ac431f7b6.svg",*/
 			"rotationCenterX":44,
 			"rotationCenterY":44
 		}],

@@ -54,6 +54,7 @@ Elements.filePicker.onchange = async function(e) {
 function resetAll() {
 	globalNamespace =  {"Math": {"name": "Math", "type": "namespace", "visual": "Math | ", "value": {}},
 						"Pen": {"name": "Pen", "type": "namespace", "visual": "Pen | ", "value": {}},
+						"Looks": {"name": "Looks", "type": "namespace", "visual": "Looks | ", "value": {}},
 						"Sensing": {"name": "Sensing", "type": "namespace", "visual": "Sensing | ", "value": {}}};
 	ValidMath.forEach(op => globalNamespace.Math.value[op] = {"type": "nativeFunction", "exec": Natives.mathOp, "name": op});
 	globalNamespace.Pen.value["down"] = {"type": "nativeFunction", "exec": Natives.penDown, "name": "down"};
@@ -61,6 +62,7 @@ function resetAll() {
 	globalNamespace.Pen.value["clear"] = {"type": "nativeFunction", "exec": Natives.penClear, "name": "clear"};
 	globalNamespace.Pen.value["setSize"] = {"type": "nativeFunction", "exec": Natives.penSetSize, "name": "setSize"};
 	globalNamespace.Pen.value["moveTo"] = {"type": "nativeFunction", "exec": Natives.penMoveTo, "name": "moveTo"};
+	globalNamespace.Looks.value["setSize"] = {"type": "nativeFunction", "exec": Natives.setSize, "name": "setSize"};
 	globalNamespace.Sensing.value["mouseX"] = {"type": "constant", "value": [0, "#mouseX"], "name": "mouseX"};
 	globalNamespace.Sensing.value["mouseY"] = {"type": "constant", "value": [0, "#mouseY"], "name": "mouseY"};
 	globalNamespace.Sensing.value["mouseDown"] = {"type": "constant", "value": [0, "#mouseDown"], "name": "mouseDown"};

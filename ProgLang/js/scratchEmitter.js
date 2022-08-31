@@ -523,6 +523,11 @@ var SE = {
 		block.inputCustom(options, "KEY_OPTION", isVal ? null : key);
 		return block;
 	},
+	"#looksSetSize": function(t, me) {
+		let block = new Block("looks_setsizeto");
+		block.input("number", "SIZE", t.exec(t, me[2]));
+		return block;
+	},
 }
 
 /*

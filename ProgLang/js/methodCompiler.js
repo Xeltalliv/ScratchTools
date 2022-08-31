@@ -137,6 +137,9 @@ var Natives = {
 	"sensingKeyPressed": function(obj, pos, args) {
 		return [pos, "#keyPressed", args[0]];
 	},
+	"setSize": function(obj, pos, args) {
+		return [pos, "#looksSetSize", args[0]];
+	},
 }
 
 var MC = {
