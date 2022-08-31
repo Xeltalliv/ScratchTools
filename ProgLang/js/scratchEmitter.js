@@ -53,8 +53,8 @@ class ScratchEmitter {
 		if(method.name == "whenFlagClicked") {
 			definition = new Block("event_whenflagclicked");
 			definition.block.topLevel = true;
-			definition.block.x = Math.floor(Math.random()*1000);
-			definition.block.y = Math.floor(Math.random()*1000);
+			definition.block.x = Math.floor(Math.random()*10000);
+			definition.block.y = Math.floor(Math.random()*10000);
 		} else {
 			definition = new Block("procedures_definition");
 			let proto = new Block("procedures_prototype");
@@ -66,8 +66,8 @@ class ScratchEmitter {
 				proto.block.inputs[elem.id] = [1, arg.id];
 			});
 			definition.block.topLevel = true;
-			definition.block.x = Math.floor(Math.random()*1000);
-			definition.block.y = Math.floor(Math.random()*1000);
+			definition.block.x = Math.floor(Math.random()*10000);
+			definition.block.y = Math.floor(Math.random()*10000);
 			definition.block.inputs.custom_block = [1, proto.id];
 			proto.block.parent = definition.id;
 			proto.block.shadow = true;
