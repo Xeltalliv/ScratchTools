@@ -30,6 +30,7 @@ var Elements = {
 	importError: document.getElementById("importError"),
 	waitForDownload: document.getElementById("waitForDownload"),
 	filePicker: document.getElementById("filePicker"),
+	icon: document.getElementById("icon"),
 }
 
 if(!window.showDirectoryPicker) {

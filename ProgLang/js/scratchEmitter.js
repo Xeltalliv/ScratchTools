@@ -27,6 +27,7 @@ class ScratchEmitter {
 				saveAs(content, "Compiled.sb3");
 			}
 			document.body.style["background-color"] = "#ccf2cc";
+			Elements.icon.href = "images/success.png";
 		});
 	}
 	emitVarsLists(vars, lists, ns) {

@@ -217,6 +217,7 @@ var Visual = {
 	error: function(msg) {
 		gotError = true;
 		document.body.style["background-color"] = "#f2cccc";
+		Elements.icon.href = "images/failure.png";
 		let log = document.createElement("div");
 		let text = document.createElement("pre");
 		text.classList.add("fixPre");
