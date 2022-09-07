@@ -299,20 +299,20 @@ var SE = {
 	},
 	"#operator>": function(t, me) {
 		let block = new Block("operator_gt");
-		block.input("number", "OPERAND1", t.exec(t, me[2]));
-		block.input("number", "OPERAND2", t.exec(t, me[3]));
+		block.input("string", "OPERAND1", t.exec(t, me[2]));
+		block.input("string", "OPERAND2", t.exec(t, me[3]));
 		return block;
 	},
 	"#operator<": function(t, me) {
 		let block = new Block("operator_lt");
-		block.input("number", "OPERAND1", t.exec(t, me[2]));
-		block.input("number", "OPERAND2", t.exec(t, me[3]));
+		block.input("string", "OPERAND1", t.exec(t, me[2]));
+		block.input("string", "OPERAND2", t.exec(t, me[3]));
 		return block;
 	},
 	"#operator==": function(t, me) {
 		let block = new Block("operator_equals");
-		block.input("number", "OPERAND1", t.exec(t, me[2]));
-		block.input("number", "OPERAND2", t.exec(t, me[3]));
+		block.input("string", "OPERAND1", t.exec(t, me[2]));
+		block.input("string", "OPERAND2", t.exec(t, me[3]));
 		return block;
 	},
 	"#operator&&": function(t, me) {
