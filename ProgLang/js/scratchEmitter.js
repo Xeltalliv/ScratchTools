@@ -344,7 +344,7 @@ var SE = {
 			return block;
 		} else {
 			let block = new Block("operator_mathop");
-			block.field("OPERATOR", me[2]);
+			block.field("OPERATOR", me[2] === "ceil" ? "ceiling" : me[2]);
 			block.input("number", "NUM", t.exec(t, me[3]));
 			return block;
 		}
