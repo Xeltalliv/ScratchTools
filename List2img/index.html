@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+	<head>
+		<title>img2list</title>
+		<meta charset='UTF-8'>
+		<link rel="stylesheet" href="style.css"/>
+	</head>
+	<body>
+		<h1>list2img</h1>
+		<div id="main">
+			<span>A tool for converting lists of numbers to images</span><hr>
+			<span>Mode</span>
+			<select id="mode">
+				<option value="dn0">decimal RED channel</option>
+				<option value="dc1">decimal combined RGB</option>
+				<option value="dn1">decimal new line RGB</option>
+				<option value="dc2">decimal combined RGBA</option>
+				<option value="dn2">decimal new line RGBA</option>
+				<option value="dc3">decimal combined ARGB</option>
+				<option value="dn3">decimal new line ARGB</option>
+				<option value="hn0">hex RED channel</option>
+				<option value="hc1">hex combined RGB</option>
+				<option value="hn1">hex new line RGB</option>
+				<option value="hc2">hex combined RGBA</option>
+				<option value="hn2">hex new line RGBA</option>
+				<option value="hc3">hex combined ARGB</option>
+				<option value="hn3">hex new line ARGB</option>
+				<option value="pn0">0x hex RED channel</option>
+				<option value="pc1">0x hex combined RGB</option>
+				<option value="pn1">0x hex new line RGB</option>
+				<option value="pc2">0x hex combined RGBA</option>
+				<option value="pn2">0x hex new line RGBA</option>
+				<option value="pc3" selected>0x hex combined ARGB</option>
+				<option value="pn3">0x hex new line ARGB</option>
+			</select>
+			<br>
+			<span>Select list</span>
+			<input type=file id=file>
+			<hr>
+		</div>
+		<div class="hidden" id="hidden">
+			<p>Pick values that make image below look correctly.<br>Then right click and "Save as".</p>
+			<span>Width</span>
+			<input type="number" id="width" value="16"><button onclick="guess()">Guess</button>
+			<br>
+			<span>Height</span>
+			<input type="number" id="height" value="16">
+			<br>
+			<span>Offset</span>
+			<input type="number" id="offset" value="0"><button onclick="next()">Next</button>
+			<br>
+			<img id="image">
+			<p class="error" id="error">width/height/offset too big</p>
+		</div>
+
+		<script src=../vendor/FileSaver/FileSaver.js></script>
+		<script src=main.js></script>
+	</body>
+</html>

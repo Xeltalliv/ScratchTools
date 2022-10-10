@@ -1,0 +1,21 @@
+body{
+	font-size: 20px;
+	text-align: center;
+}
+img{
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
+	border: 1px solid black;
+	width: 100%;
+}
+div{
+	display: inline-block;
+	text-align: left;
+}
+.hidden{
+	display: none;
+}
+.error{
+	color: red;
+}
