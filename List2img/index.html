@@ -41,19 +41,18 @@
 		<div class="hidden" id="hidden">
 			<p>Pick values that make image below look correctly.<br>Then right click and "Save as".</p>
 			<span>Width</span>
-			<input type="number" id="width" value="16"><button onclick="guess()">Guess</button>
+			<input type="number" id="width" value="16" min="1"><button onclick="guess()">Guess</button>
 			<br>
 			<span>Height</span>
-			<input type="number" id="height" value="16">
+			<input type="number" id="height" value="16" min="1">
 			<br>
 			<span>Offset</span>
-			<input type="number" id="offset" value="0"><button onclick="next()">Next</button>
+			<input type="number" id="offset" value="0" min="0"><button onclick="next()" id="next">Next</button>
 			<br>
 			<img id="image">
 			<p class="error" id="error">width/height/offset too big</p>
 		</div>
 
-		<script src=../vendor/FileSaver/FileSaver.js></script>
 		<script src=main.js></script>
 	</body>
 </html>

@@ -13,27 +13,36 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-const channelModes = [[0], [0,1,2], [0,1,2,3], [3,0,1,2]];
-const modeElem = document.getElementById("mode");
-if(location.hash) modeElem.value = location.hash.substr(1,3);
-modeElem.onchange = () => {location.hash = "#"+modeElem.value; changeMode(); process();}
-
 let canvas = document.createElement("canvas");
 let ctx = canvas.getContext("2d");
+let fileElem = document.getElementById("file");
+let modeElem = document.getElementById("mode");
 let widthElem = document.getElementById("width");
 let heightElem = document.getElementById("height");
 let offsetElem = document.getElementById("offset");
+let nextElem = document.getElementById("next");
 let image = document.getElementById("image");
 let error = document.getElementById("error");
-
 let listData = [];
 let colors = [];
 let func = null;
 let step = 1;
 let shown = false;
 
-document.getElementById("file").onchange = async filepicker => {
+if(location.hash) modeElem.value = location.hash.substr(1,3);
+
+widthElem.addEventListener('input', process);
+heightElem.addEventListener('input', process);
+offsetElem.addEventListener('input', process);
+widthElem.addEventListener('change', noEmpty);
+heightElem.addEventListener('change', noEmpty);
+offsetElem.addEventListener('change', noEmpty);
+modeElem.addEventListener('change', () => {
+	location.hash = "#"+modeElem.value;
+	changeMode();
+	process();
+});
+fileElem.addEventListener('change', async filepicker => {
 	let reader = new FileReader();
 	reader.onload = () => {
 		listData = reader.result.split("\n");
@@ -46,11 +55,7 @@ document.getElementById("file").onchange = async filepicker => {
 		process();
 	}
 	reader.readAsText(filepicker.target.files[0]);
-};
-
-widthElem.addEventListener('input', process);
-heightElem.addEventListener('input', process);
-offsetElem.addEventListener('input', process);
+});
 
 function process() {
 	if(listData.length == 0) return;
@@ -58,8 +63,18 @@ function process() {
 	let width = widthElem.value | 0;
 	let height = heightElem.value | 0;
 	let offset = offsetElem.value | 0
+
+	let next = offset + width * height * step;
+	if(next < listData.length) {
+		nextElem.disabled = false;
+	} else {
+		nextElem.disabled = true;
+	}
+
 	colors = [];
-	func(listData.slice(offset, width*height*step), colors);
+	try {
+		func(listData.slice(offset, offset+width*height*step), colors);
+	} catch(e) {return}
 	if(colors.length != width*height*4) {
 		image.style.display = "none";
 		error.style.display = "block";
@@ -134,19 +149,20 @@ function changeMode() {
 		alpha = "255";
 	}
 	if(mode[2] == "2") {
-		red = value1;
-		green = value2;
-		blue = value3;
-		alpha = value0;
-	}
-	if(mode[2] == "3") {
 		red = value0;
 		green = value1;
 		blue = value2;
 		alpha = value3;
 	}
+	if(mode[2] == "3") {
+		red = value1;
+		green = value2;
+		blue = value3;
+		alpha = value0;
+	}
 
 	let funcSrc = "(lines, colors) => {for(let i=0; i<lines.length; i+="+step+") {"+extra+"colors.push("+red+", "+green+", "+blue+", "+alpha+");}}";
+	console.log(funcSrc);
 	func = eval(funcSrc);
 }
 
@@ -177,8 +193,8 @@ function guess() {
 	}
 	maxWidth /= 4;
 
-	widthElem.value = maxWidth;
-	heightElem.value = Math.floor(pixelCount / maxWidth);
+	widthElem.value = Math.max(maxWidth, 1);
+	heightElem.value = Math.max(Math.floor(pixelCount / maxWidth), 1);
 	process();
 }
 
@@ -188,4 +204,9 @@ function next() {
 	let offset = offsetElem.value | 0
 	offsetElem.value = offset + width * height * step;
 	process();
+}
+
+function noEmpty(e) {
+	if(e.target.value == "") e.target.value = e.target.min;
+	else e.target.value = e.target.value | 0;
 }
