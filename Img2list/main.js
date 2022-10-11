@@ -45,7 +45,7 @@ document.getElementById("file").onchange = async filepicker => {
 		process(await new Promise((resolve, reject) => {
 			let img = new Image();
 			img.onload = () => resolve(img);
-			img.onerror = err => alert("Error: "+err);
+			img.onerror = err => alert(file.name+" is not a valid image");
 			img.src = URL.createObjectURL(file);
 		}), func, output);
 	}
