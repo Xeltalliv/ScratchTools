@@ -50,6 +50,7 @@ fileElem.addEventListener('change', async filepicker => {
 		changeMode();
 		if(!shown) {
 			document.getElementById("main").append(...document.getElementById("hidden").childNodes);
+			document.getElementById("main").append(document.getElementById("also_see"));
 			shown = true;
 		}
 		process();
