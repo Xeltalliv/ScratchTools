@@ -19,10 +19,11 @@
 				<li>By providing access to directory with files directly, which is a recomended option, but it isn't supported in every browser.</li>
 				<li>By importing a zip containing all of the files and directories</li>
 			</ul>
-			<p>After that, the "Compile" button should be clicked. The compiler will recursively go through all subdirectories and find files that end with <span class=box>.vspl</span> which it will later try to compile. It will also look for files called <span class=box>exportList.txt</span>, <span class=box>Compiled.sb3</span> and <span class=box><s>template.sb3</s></span>.</p>
+			<p>After that, the "Compile" button should be clicked. The compiler will recursively go through all subdirectories and find files that end with <span class=box>.vspl</span> which it will later try to compile. It will also look for files called <span class=box>exportList.txt</span> and <span class=box>Compiled.sb3</span><!-- and <span class=box><s>template.sb3</s></span>-->.</p>
 			<p><span class=box>exportList.txt</span> is used to describe which functions should be placed to which sprites. If specified function relies on some other un-specified functions, those will also be included automatically.</p>
 			<p><span class=box>Compiled.sb3</span> if exists, would automatically be overwritten with the compilation output without prompting user to save the file.</p>
-			<p><s><span class=box><s>template.sb3</s></span> will be used as a base for newly generated project.</s></p>
+			<!--<p><s><span class=box><s>template.sb3</s></span> will be used as a base for newly generated project.</s></p>-->
+			<p><u>If you still aren't sure how to do it, you can check <a href="example.html">this example</a>.</u></p>
 			<h2>Language syntax</h2>
 			<p>In most cases amount of spaces and placement of newlines doesn't matter.</p>
 			<p><span class=box>//</span> can be used to mark the rest of the line as comment.<br>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>How to start</title>
+		<link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+		<div class=uppertext>
+			<span class=title>Vadik's scratch programming language compiler</title>
+		</div>
+		<div class=inb>
+			<h3>Step 1:</h3>
+			<p>Download <a href="example.zip" download="example.zip">this zip file</a> with example code.</p>
+
+			<h3>Step 2:</h3>
+			<p>Decide which of those 2 buttons you would like to use:</p>
+			<ul>
+				<li><span class=box>Pick directory</span> uses modern File Access API that lets you provide it access to some directory on your computer once and compiler will be able to read and write to it on it's own, without prompting you every time. This option is recomended, but it only works in some browsers.</li>
+				<li><span class=box>Import zip</span> uses filepicker input, requiring you to reselect source code every time manually, and saving is done in the same way downloading other files is done in your browser. This option is quite annoying to use.</li>
+			</ul>
+			<hr>
+
+			<h3>For Pick directory:</h3>
+			<h3>Step 3:</h3>
+			<p>Unpack zip file you downloaded.</p>
+
+			<h3>Step 4:</h3>
+			<p>Click "Pick directory". In the window that appears, find and go into the directory that you got from unpacking. Then press the button that confirms you choice.</p>
+
+			<h3>Step 5:</h3>
+			<p>In the small window that pops up give it file-reading permissions within that directory.</p>
+
+			<h3>Step 6:</h3>
+			<p>Click "Compile" button.</p>
+
+			<h3>Step 7:</h3>
+			<p>In the small window that pops up give it file-writing permissions within that directory.</p>
+
+			<h3>Step 8:</h3>
+			<p>If compilation succeds, the background will turn green.<br>Inside that directory, you will find <span class=box>Compiled.sb3</span> file, which you can open in scratch.</p>
+
+			<h3>Changing files</h3>
+			<p>If you change vspl files, just click "Compile", wait 1-3 seconds until it finishes and then reopen <span class=box>Compiled.sb3</span> file in scratch.</p>
+			<hr>
+
+			<h3>For Import zip:</h3>
+			<h3>Step 3:</h3>
+			<p>Click "Import zip".</p>
+
+			<h3>Step 4:</h3>
+			<p>In the window that appears, find and select zip you downloaded.<p>
+
+			<h3>Step 5:</h3>
+			<p>Click "Compile".</p>
+
+			<h3>Step 6:</h3>
+			<p>If compilation succeds, the background will turn green.<br>Depending on your browser settings, the compiled file will either download automatically to Downloads directory or you will be prompted to pick where it should be saved. Then you can open that file in scratch.</p>
+
+			<h3>Changing files</h3>
+			<p>If you change vspl files, you should reselect zip archive with them, click "Compile", wait 1-3 seconds until it finishes, then depending on your browser settings, the compiled file will either download automatically to Downloads directory or you will be prompted to pick where it should be saved.</p>
+
+			<hr>
+			<h3>Other information</h3>
+			<p><span class=box>exportList.txt</span> is optional. If it is not present, everything will be exported in Sprite1.</p>
+			<p><span class=box>Compiled.sb3</span> is also optional. If it is not present, you will not be asked about write permissions and it will use the ususal file saving instaed.</p>
+			<p>If <span class=box>Compiled.sb3</span> is present, but you decline file write permissions, it will also use the ususal file saving instead.</p>
+		</div>
+		<br>
+		<br>
+		<a href=index.html>Go back to compiler</a><br>
+		<a href=https://scratch.mit.edu/users/Vadik1/>Vadik1 on Scratch</a> | <a href=https://github.com/Xeltalliv/ScratchTools/blob/main/README.md>Other tools</a> | <a href=https://github.com/Xeltalliv/ScratchTools/tree/main/ProgLang>Source code</a>
+	</body>
+</html>
