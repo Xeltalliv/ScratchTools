@@ -64,3 +64,7 @@ It contains some very useful zero cost abstractions that make creation of advanc
 All files in the repository with the exception of `/vendor` folder are licensed under GNU General Public License v3.0.
 
 Files inside `/vendor` folder have their own license files included along with them.
+
+## Credits
+
+Also thanks to [GarboMuffin](https://github.com/GarboMuffin) for providing [trampoling.turbowarp.org](https://trampoling.turbowarp.org/) proxy used in some of the tools.

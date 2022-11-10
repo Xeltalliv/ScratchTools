@@ -85,7 +85,9 @@ var Loader = {
 			if(isNaN(id)) throw new Error("Invalid project URL or id");
 
 			await Visual.show("Loading project.json");
-			let project = await download("https://projects.scratch.mit.edu/"+id, "text", "Failed to download project");
+			let projectApi = await download("https://trampoline.turbowarp.org/proxy/projects/"+id, "text", "Failed to get project token");
+			let projectApiJson = tryFunc(() => JSON.parse(projectApi), "Failed to parse project's api JSON");
+			let project = await download("https://projects.scratch.mit.edu/"+id+"?token="+projectApiJson.project_token, "text", "Failed to download project json");
 			let projectJson = tryFunc(() => JSON.parse(project), "Failed to parse project's JSON");
 			let targets = tryVal(projectJson.targets, "Targets not found");
 
