@@ -67,4 +67,4 @@ Files inside `/vendor` folder have their own license files included along with t
 
 ## Credits
 
-Also thanks to [GarboMuffin](https://github.com/GarboMuffin) for providing [trampoling.turbowarp.org](https://trampoling.turbowarp.org/) proxy used in some of the tools.
+Also thanks to [GarboMuffin](https://github.com/GarboMuffin) for providing [trampoline.turbowarp.org](https://trampoline.turbowarp.org/) proxy used in some of the tools.
