@@ -1,5 +1,6 @@
 const id = (id) => document.getElementById(id);
 let hash = null;
+let name = "";
 
 id("select").addEventListener("input", (evt) => {
 	hash = evt.target.value;
@@ -44,6 +45,7 @@ async function loadProject(button) {
 	let res = await fetch("https://scratchdb.lefty.one/v3/project/info/"+projectId+"/");
 	if(res.status == 404) throw new Error("Project data not found");
 	let pdata = await res.json();
+	name = pdata.title;
 	let history = pdata.metadata.history;
 	while (select.firstChild) {
 		select.removeChild(select.lastChild);
@@ -98,7 +100,7 @@ async function downloadProject() {
 	id("out2").innerText = "Packing sb3";
 	let blob = await zip.generateAsync({type: "blob", compression: "DEFLATE"});
 	id("out2").innerText = "Wait for download";
-	saveAs(blob, name);
+	saveAs(blob, name+".sb3");
 }
 
 async function processAsset(asset, assets, assetCounter) {
