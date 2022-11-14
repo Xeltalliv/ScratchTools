@@ -26,6 +26,12 @@ This program reduces the size of this json file in a way that can't cause any is
 persistent even after being loaded and resaved in scratch.
 
 
+#### [ProjectHistory](https://xeltalliv.github.io/ScratchTools/ProjectHistory/)
+
+A tool for recovering old verions of projects, by getting that data
+from [DatOneLefty](https://scratch.mit.edu/users/DatOneLefty/)'s [ScratchDB](https://scratchdb.lefty.one/).
+
+
 #### [STT-Visualizer](https://xeltalliv.github.io/ScratchTools/STT_Visualizer/)
 
 A tool that allows to convert cloud log of [this](https://scratch.mit.edu/projects/555383076/) project to a human readable format.
