@@ -1,8 +1,6 @@
 var a = document.getElementById("a");
 var input = document.getElementById("f");
 var reader = new FileReader();
-var sb2sizePos = 0x0004a2c8;
-var sb2pos = 0x0004a2d2;
 
 input.onchange = function() {
 	a.download = this.files[0].name.replaceAll(".swf",".sb2");
@@ -11,14 +9,23 @@ input.onchange = function() {
 
 reader.onload = function() {
 	var data = reader.result;
-	var sb2sizeAB = data.slice(sb2sizePos, sb2sizePos+4);
-	var sb2sizeU8 = new Uint8Array(sb2sizeAB);
-	var sb2size = 0;
-	for(let i=0,j=1; i<4; i++, j*=256) {
-		sb2size += sb2sizeU8[i] * j;
+	var toFind = [0x50, 0x4b, 0x03, 0x04];
+	var at = 0;
+	var sb2pos = null;
+	var data2 = new Uint8Array(data);
+	for(let i=0; i<data2.length; i++) {
+		if(data2[i] == toFind[at]) {
+			at++;
+			if(at == 4) {
+				sb2pos = i - 3;
+				break;
+			}
+		} else {
+			at = 0;
+		}
 	}
-	sb2size -= 6;
-	var sb2dataAB = data.slice(sb2pos, sb2pos+sb2size);
+	if (sb2pos == null) return alert("SB2 zip header was not found :(");
+	var sb2dataAB = data.slice(sb2pos);
 	var blob = new Blob([sb2dataAB], {type: 'application/octet-stream'});
 	var url = URL.createObjectURL(blob);
 	a.href = url;
