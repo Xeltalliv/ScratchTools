@@ -14,7 +14,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const channelModes = [[0], [0,1,2], [0,1,2,3], [3,0,1,2]];
+const channelModes = [[0], [0,1,2], [0,1,2,3], [3,0,1,2], [3,0,1,2]];
 const modeElem = document.getElementById("mode");
 if(location.hash) modeElem.value = location.hash.substr(1,3);
 modeElem.onchange = () => location.hash = "#"+modeElem.value;
@@ -24,16 +24,18 @@ document.getElementById("file").onchange = async filepicker => {
 	let channels = [];
 	let channelMode = channelModes[mode[2]];
 	for(let i=0; i<channelMode.length; i++) {
-		let str = "imgdata[i+"+channelMode[i]+"]"
+		let str = "imgdata[i+"+channelMode[i]+"]";
 		if(mode[0] != "d") str = "('00'+("+str+").toString(16)).substr(-2)";
 		if(mode[0] == "d" && mode[1] == "c") {
 			let mul = 256 ** (channelMode.length - 1 - i);
 			if(mul > 1) str += "*"+mul;
 		}
 		if(mode[0] == "p" && mode[1] == "n") str = "'0x'+"+str;
+		if(mode[2] == "4" && channelMode[i] == 3) str = "(imgdata[i+"+channelMode[i]+"]==255?"+(mode[0] == "d"?"0":"''")+":"+str+")";
 		channels.push(str);
 	}
 	let funcSrc = (mode[0]=="p" && mode[1]=="c" ? "'0x'+" : "") + channels.join(mode[1]=="n" ? ", " : "+");
+	if(mode[2] == "4" && mode[1] == "c") funcSrc = "imgdata[i+3]==0?'':("+funcSrc+")";
 	funcSrc = "(output, imgdata) => { for(var i=0; i<imgdata.length; i+=4) output.push("+funcSrc+");}";
 	console.log(funcSrc);
 	let func = eval(funcSrc);
