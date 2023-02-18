@@ -11,3 +11,6 @@ div{
 	display: inline-block;
 	text-align: left;
 }
+select{
+	font-family: monospace;
+}

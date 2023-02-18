@@ -19,3 +19,6 @@ div{
 .error{
 	color: red;
 }
+select{
+	font-family: monospace;
+}
