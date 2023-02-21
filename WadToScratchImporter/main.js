@@ -467,7 +467,9 @@ function getNodes(){
 
 async function downloadProject() {
 	try {
-		project = await download("https://projects.scratch.mit.edu/"+project,"text","Failed to download project");
+		let projectApi = await download("https://trampoline.turbowarp.org/proxy/projects/"+project, "text", "Failed to get project token");
+		let projectApiJson = tryFunc(() => JSON.parse(projectApi), "Failed to parse project's api JSON");
+		project = await download("https://projects.scratch.mit.edu/"+project+"?token="+projectApiJson.project_token, "text", "Failed to download project json");
 		project = tryFunc(() => JSON.parse(project),"Failed to parse project's JSON");
 		let targets = tryVal(project.targets,"Targets not found");
 		console.log(project);
