@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Minimizer</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content="scratch, project.json, sb3, compress, reduce, minimize">
+		<meta name="description" content="Scratch projects are zip archives with all files having size limits. This tool compresses file called project.json, which has 5MiB limit.">
+		<link rel="stylesheet" href="style.css">
+		<script defer src="../vendor/JSZip/jszip.js"></script>
+		<script defer src="../vendor/FileSaver/FileSaver.js"></script>
+		<script defer src="downloader.js"></script>
+		<script defer src="project.js"></script>
+		<script defer src="idGenerator.js"></script>
+		<script defer src="minimizer.js"></script>
+		<script defer src="visual.js"></script>
+		<script defer src="main.js"></script>
+    </head>
+    <body>
+		<div class="uppertext">
+			<span class="title">New experimental<br>
+			Scratch 3 project.json minimizer</span>
+		</div>
+		<div class="warning">
+			<span class="warningTitle">Warning</span><br>
+			Rewritten from the ground up. Not tested properly.<br>
+			May contain bugs that corrupt projects.
+		</div>
+		<div class="inb">
+			<div class="buttonHolder">
+				<input type="text" placeholder="Project URL or id here" id="urlInput" class="urlInput">
+				<button id="loadFromUrl">Load from URL</button>
+				<div class="divider"></div>
+				<button id="loadFromFile">Select local file</button>
+			</div>
+			<span id="importError" class="redText"></span>
+			<hr>
+			<input type="checkbox" class="option" name="clearMonitorValues"         checked><span>Clear redundant monitor data</span><br>
+			<input type="checkbox" class="option" name="clearUnusedMonitors"        checked><span>Clear unused monitors</span><br>
+			<input type="checkbox" class="option" name="clearCovered"               checked><span>Make covered values empty</span><br>
+			<input type="checkbox" class="option" name="dataNumberify"              checked><span>Turn numeric strings to numbers</span><br>
+			<input type="checkbox" class="option" name="dataRoundLastDigit"         checked><span>Round last digit where it reduces length by a lot</span><br>
+			<input type="checkbox" class="option" name="roundBlockAndCommentCoords" checked><span>Round positions of blocks and comments</span><br>
+			<input type="checkbox" class="option" name="useListLast"                checked><span>Use item [last] of [list]</span><br>
+			<hr>
+			<b>Compress identifiers of</b><br>
+			<input type="checkbox" class="compressId" name="block"     checked><span>Blocks</span><br>
+			<input type="checkbox" class="compressId" name="argument"  checked><span>Custom block arguments</span><br>
+			<input type="checkbox" class="compressId" name="variable"  checked><span>Variables</span><br>
+			<input type="checkbox" class="compressId" name="list"      checked><span>Lists</span><br>
+			<input type="checkbox" class="compressId" name="broadcast" checked><span>Broadcasts</span><br>
+			<input type="checkbox" class="compressId" name="comment"   checked><span>Comments</span><br>
+			<hr>
+			<input type="checkbox" class="option" name="dryRun"><span>Test mode (disables saving)</span><br>
+			<hr>
+			Result:
+			<span id="message">nothing yet</span>
+			<div class="total">
+				<div class="new" id="newbar"></div>
+				<div class="old" id="oldbar"></div>
+			</div>
+			<b id="waitForDownload" style="display:none;">(Please wait. The download of compressed file should start soon)</b>
+			<input type="file" class="hidden" id="filePicker" accept=".sb3, .zip, .json">
+		</div>
+		<br>
+		<br>
+		<br>
+		<a href="https://scratch.mit.edu/users/Vadik1/">Vadik1 on Scratch</a> | 
+		<a href="https://github.com/Xeltalliv/ScratchTools/blob/main/README.md">Other tools</a> | 
+		<a href="https://github.com/Xeltalliv/ScratchTools/tree/main/ProjectJsonMinimizerNew">Source code</a>
+	</body>
+</html>
