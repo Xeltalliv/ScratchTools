@@ -14,7 +14,30 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const colors = {R:0,G:1,B:2,A:3};
+
 document.getElementById("file").onchange = async filepicker => {
+	let mode = document.getElementById("mode").value;
+	let actions = [];
+	for(let i=0; i<mode.length; i++) {
+		if(mode[i] == " ") continue;
+		let offset = colors[mode[i]];
+		if(offset === undefined) {
+			alert("invalid character: "+mode[i]);
+			document.getElementById("file").value = null;
+			return;
+		}
+		i++;
+		let bits = +mode[i]
+		if(isNaN(bits) || bits == 0) {
+			alert("invalid bit count: "+mode[i]);
+			document.getElementById("file").value = null;
+			return;
+		}
+		actions.push([offset, bits]);
+	}
+
 	let output = [];
 	let files = filepicker.target.files;
 	for(let i=0; i<files.length; i++) {
@@ -24,7 +47,7 @@ document.getElementById("file").onchange = async filepicker => {
 			img.onload = () => resolve(img);
 			img.onerror = err => alert(file.name+" is not a valid image");
 			img.src = URL.createObjectURL(file);
-		}), output);
+		}), output, actions);
 	}
 
 	let name = files.length == 1 ? files[0].name : "images";
@@ -33,13 +56,30 @@ document.getElementById("file").onchange = async filepicker => {
 	document.getElementById("file").value = null;
 }
 
-function process(image, output) {
+function process(image, output, actions) {
 	let canv = document.createElement("canvas");
 	canv.width = image.width;
 	canv.height = image.height;
 	let ctx = canv.getContext("2d");
 	ctx.drawImage(image, 0, 0);
 	let imgdata = ctx.getImageData(0, 0, canv.width, canv.height).data;
-	output.push(btoa(new Uint8Array(imgdata).reduce((data, byte) => data + String.fromCharCode(byte), '')));
+
+	let bits = 0;
+	let bitcount = 0;
+	let out = "";
+	for(let i=0; i<imgdata.length; i+=4) {
+		for(let action of actions) {
+			let color = imgdata[i+action[0]];
+			bits = (bits << action[1]) + (color >> (8-action[1]));
+			bitcount += action[1];
+			while(bitcount >= 6) {
+				out += chars[bits >> (bitcount - 6)];
+				bits &= (1<<(bitcount-6))-1;
+				bitcount -= 6;
+			}
+		}
+	}
+	if(bitcount > 0) out += chars[bits << (6-bitcount)];
+	output.push(out);
 	URL.revokeObjectURL(image.src);
 }
