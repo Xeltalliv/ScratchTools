@@ -348,7 +348,7 @@ class Minimizer {
 	processCovered(array) {
 		if(array[0] >= 4 && array[0] <= 8) {
 			if((array[1]+"").length == 1) {
-				if(typeof array[1] == "string") array[1] = Number(array[1]);
+				if(typeof array[1] == "string") array[1] = +array[1] || 0;
 			} else {
 				array[1] = 0;
 			}
