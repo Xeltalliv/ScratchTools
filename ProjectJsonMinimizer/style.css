@@ -120,3 +120,14 @@ body{
 	font-weight: bold;
 	font-size: 20px;
 }
+.trynew{
+	background-color: #aaffcc;
+	border: 1px solid #77bb99;
+	border-radius: 5px;
+	margin: 0px 0px 10px 0px;
+	padding: 5px;
+}
+.trynewTitle{
+	font-weight: bold;
+	font-size: 20px;
+}
