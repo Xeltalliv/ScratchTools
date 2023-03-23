@@ -1,8 +1,13 @@
-# ScratchTools
+# Various tools for Scratch
 
-ScratchTools - a set of simple [Scratch](https://en.wikipedia.org/wiki/Scratch_(programming_language)) related, but mostly unrelated to each other tools.
+A set of simple [Scratch](https://en.wikipedia.org/wiki/Scratch_(programming_language)) related, but mostly unrelated to each other tools.
 
 Many tools from this respository are availible through github-pages.
+
+
+Not related to another more popular thing with the same name.
+When I made this, I didn't know that existed. Now I can't rename
+this repo because there are too many links to it.
 
 ---
 
