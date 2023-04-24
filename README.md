@@ -10,16 +10,16 @@ Even though I'd like to, I can't rename this repo because there are too many lin
 
 ---
 
-## Description
+## Description each tool
 
 #### [Img2list](https://xeltalliv.github.io/ScratchTools/Img2list/)
 
-A tool for converting images to lists of numbers in a variaty of ways.
+A tool for converting images to lists of numbers in a variaty of ways. Useful for importing textures in projects that use pen.
 
 
 #### [List2img](https://xeltalliv.github.io/ScratchTools/List2img/)
 
-A tool for converting lists of numbers to images.
+A tool for converting lists of numbers to images. Useful for extracting textures from pen projects.
 
 
 #### [ProjectJsonMinimizer](https://xeltalliv.github.io/ScratchTools/ProjectJsonMinimizer/)
@@ -28,6 +28,13 @@ Scratch project file format `.sb3` is actually a zip archive with all of the ass
 That json file has a limit of 5 MiB, and scratch by default wastes a lot of space in it.
 This program reduces the size of this json file in a way that can't cause any issues and that remains
 persistent even after being loaded and resaved in scratch.
+
+
+#### [Vadik's scratch programming language](https://xeltalliv.github.io/ScratchTools/ProgLang/)
+
+A compiler for a custom programming language `.vspl` that compiles into scratch 3 projects.
+It contains some very [useful zero cost abstractions](https://xeltalliv.github.io/ScratchTools/ProgLang/guide.html) that make creation of advanced projects easier.  
+There's also a [3D rigidbody physics engine written in it](https://github.com/Xeltalliv/VsplPhysicsEngine), a compiled version of which can be found [here](https://turbowarp.org/727515422).
 
 
 #### [ProjectHistory](https://xeltalliv.github.io/ScratchTools/ProjectHistory/)
@@ -61,11 +68,6 @@ to reassemble project back into `.sb3`. File creation dates are preserved.
 
 A tool for automatically importing `.wad` files of [idTech1](https://en.wikipedia.org/wiki/Doom_engine) based games to Vadik1's recreation of this engine in scratch.
 
-
-#### [Vadik's scratch programming language](https://xeltalliv.github.io/ScratchTools/ProgLang/)
-
-A compiler for a custom programming language `.vspl` that compiles into scratch 3 projects.
-It contains some very useful zero cost abstractions that make creation of advanced projects easier.
 
 ---
 
