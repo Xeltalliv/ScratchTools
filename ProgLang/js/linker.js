@@ -136,7 +136,7 @@ class Linker {
 		for(let name in ns) {
 			let elem = ns[name];
 			if(elem.type == "namespace") this.findFnsForSprite(elem.value, sprite);
-			if(elem.type == "function" && !elem.sprites.includes(sprite)) {elem.sprites.push(sprite); console.log("YES");}
+			if(elem.type == "function" && !elem.sprites.includes(sprite)) elem.sprites.push(sprite);
 		}
 	}
 }

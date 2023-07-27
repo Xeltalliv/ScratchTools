@@ -18,14 +18,21 @@ class ScratchEmitter {
 		zip.file("project.json", JSON.stringify(json));
 		zip.generateAsync({type:"blob"}).then(async function(content) {
 			if(dirHandle && outputHandle) {
-				Visual.log("Done. File Compiled.sb3 is automatically overwritten");
-				const writable = await outputHandle.createWritable();
-				await writable.write(content);
-				await writable.close();
+				try {
+					Visual.log("Done. File Compiled.sb3 is automatically overwritten");
+					const writable = await outputHandle.createWritable();
+					await writable.write(content);
+					await writable.close();
+					document.body.style["background-color"] = "#ccf2cc";
+					Elements.icon.href = "images/success.png";
+					return;
+				} catch(e) {
+					Visual.log("File overwrite failed. Using usual download instead.");
+				};
 			} else {
 				Visual.log("Done. Please wait. The download of sb3 should start soon");
-				saveAs(content, "Compiled.sb3");
 			}
+			saveAs(content, "Compiled.sb3");
 			document.body.style["background-color"] = "#ccf2cc";
 			Elements.icon.href = "images/success.png";
 		});
@@ -162,7 +169,29 @@ class Block {
 			value = value.id;
 		}
 		if(value instanceof Array && value[0] > 3 && value[0] < 11) {
-			this.block.inputs[name] = [1, [InputLib[type][0], ...value.slice(1)]];
+			if(InputLib[type][0] === 9) {
+				let base = 10, val = value[1].trim();
+				if(val[0] === "#") {
+					this.block.inputs[name] = [1, [InputLib[type][0], val]];
+				} else {
+					if(val.startsWith("0x")) {
+						base = 16;
+						val = val.substr(2);
+					}
+					if(val.startsWith("0b")) {
+						base = 2;
+						val = val.substr(2);
+					}
+					if(val.startsWith("0o")) {
+						base = 8;
+						val = val.substr(2);
+					}
+					val = "000000"+((parseInt(val, base) || 0).toString(16));
+					this.block.inputs[name] = [1, [InputLib[type][0], "#"+val.substr(val.length-6)]];
+				}
+			} else {
+				this.block.inputs[name] = [1, [InputLib[type][0], ...value.slice(1)]];
+			}
 		} else if(value === null) {
 			this.block.inputs[name] = [1, InputLib[type]];
 		} else {
@@ -497,6 +526,11 @@ var SE = {
 	"#penSetSize": function(t, me) {
 		let block = new Block("pen_setPenSizeTo");
 		block.input("number", "SIZE", t.exec(t, me[2]));
+		return block;
+	},
+	"#penSetColor": function(t, me) {
+		let block = new Block("pen_setPenColorToColor");
+		block.input("color", "COLOR", t.exec(t, me[2]));
 		return block;
 	},
 	"#penMoveTo": function(t, me) {

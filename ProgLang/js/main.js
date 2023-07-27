@@ -63,6 +63,7 @@ function resetAll() {
 	globalNamespace.Pen.value["clear"] = {"type": "nativeFunction", "exec": Natives.penClear, "name": "clear"};
 	globalNamespace.Pen.value["setSize"] = {"type": "nativeFunction", "exec": Natives.penSetSize, "name": "setSize"};
 	globalNamespace.Pen.value["moveTo"] = {"type": "nativeFunction", "exec": Natives.penMoveTo, "name": "moveTo"};
+	globalNamespace.Pen.value["setColor"] = {"type": "nativeFunction", "exec": Natives.penSetColor, "name": "setColor"};
 	globalNamespace.Looks.value["setSize"] = {"type": "nativeFunction", "exec": Natives.setSize, "name": "setSize"};
 	globalNamespace.Sensing.value["mouseX"] = {"type": "constant", "value": [0, "#mouseX"], "name": "mouseX"};
 	globalNamespace.Sensing.value["mouseY"] = {"type": "constant", "value": [0, "#mouseY"], "name": "mouseY"};

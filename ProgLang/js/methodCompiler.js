@@ -134,6 +134,9 @@ var Natives = {
 	"penMoveTo": function(obj, pos, args) {
 		return [pos, "#penMoveTo", args[0], args[1]];
 	},
+	"penSetColor": function(obj, pos, args) {
+		return [pos, "#penSetColor", args[0]];
+	},
 	"sensingKeyPressed": function(obj, pos, args) {
 		return [pos, "#keyPressed", args[0]];
 	},
