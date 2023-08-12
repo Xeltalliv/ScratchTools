@@ -78,8 +78,14 @@ class Minimizer {
 				ids.push({id: blockId, object: blocks, location: "key", type: "block"});
 
 				if(Array.isArray(block)) {
-					if(block[0] == 11 || block[0] == 12 || block[0] == 13) {
+					if(block[0] == 11) {
+						ids.push({id: block[2], object: block, item: 2, location: "item", type: "broadcast"});
+					}
+					if(block[0] == 12) {
 						ids.push({id: block[2], object: block, item: 2, location: "item", type: "variable"});
+					}
+					if(block[0] == 13) {
+						ids.push({id: block[2], object: block, item: 2, location: "item", type: "list"});
 					}
 					continue;
 				}
