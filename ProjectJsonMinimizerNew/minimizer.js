@@ -291,21 +291,25 @@ class Minimizer {
 			for(let blockId in blocks) {
 				let block = blocks[blockId];
 				if(block.topLevel) {
-					block.x = Math.round(block.x);
-					block.y = Math.round(block.y);
+					block.x = Math.round(block.x) || 0;
+					block.y = Math.round(block.y) || 0;
 				}
-				if(Array.isArray(block)) {
-					block[3] = Math.round(block[3]);
-					block[4] = Math.round(block[4]);
+				if(Array.isArray(block) && block.length > 3) {
+					block[3] = Math.round(block[3]) || 0;
+					block[4] = Math.round(block[4]) || 0;
 				}
 			}
 			
 			for(let commentId in comments) {
 				let comment = comments[commentId];
-				comment.x = Math.round(comment.x);
-				comment.y = Math.round(comment.y);
-				comment.width = Math.round(comment.width);
-				comment.height = Math.round(comment.height);
+				if('x' in comment || 'y' in comment) {
+					comment.x = Math.round(comment.x) || 0;
+					comment.y = Math.round(comment.y) || 0;
+				}
+				if('width' in comment || 'height' in comment) {
+					comment.width = Math.round(comment.width);
+					comment.height = Math.round(comment.height);
+				}
 			}
 		}
 	}
