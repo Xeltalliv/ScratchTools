@@ -73,13 +73,9 @@ class Minimizer {
 			let variables = sprite.variables;
 			let lists = sprite.lists;
 
-			if(blocks["bl!"]) console.log("YES1");
-			
 			for(let blockId in blocks) {
-				if(blockId == "bl!") console.log("YES2");
 				let block = blocks[blockId];
 				ids.push({id: blockId, object: blocks, location: "key", type: "block"});
-				if(blockId == "bl!") console.log("YES3", ids[ids.length-1]);
 
 				if(Array.isArray(block)) {
 					if(block[0] == 11 || block[0] == 12 || block[0] == 13) {
@@ -397,8 +393,8 @@ class Minimizer {
 				let list2 = inputBlock.fields.LIST;
 				if(list1[0] !== list2[0] || list1[1] !== list2[1]) continue;
 				
-				console.log("deleting", inputBlockId);
-				console.log("modifying", blockId);
+				//console.log("deleting", inputBlockId);
+				//console.log("modifying", blockId);
 				delete blocks[inputBlockId];
 				block.inputs.INDEX = [1, [6, "last"]];
 			}
