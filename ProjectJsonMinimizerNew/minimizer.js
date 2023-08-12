@@ -80,6 +80,13 @@ class Minimizer {
 				let block = blocks[blockId];
 				ids.push({id: blockId, object: blocks, location: "key", type: "block"});
 				if(blockId == "bl!") console.log("YES3", ids[ids.length-1]);
+
+				if(Array.isArray(block)) {
+					if(block[0] == 11 || block[0] == 12 || block[0] == 13) {
+						ids.push({id: block[2], object: block, item: 2, location: "item", type: "variable"});
+					}
+					continue;
+				}
 				
 				if(block.next) ids.push({id: block.next, object: block, item: "next", location: "item", type: "block"});
 				if(block.parent) ids.push({id: block.parent, object: block, item: "parent", location: "item", type: "block"});
