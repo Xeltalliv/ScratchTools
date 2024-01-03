@@ -264,8 +264,9 @@ class Minimizer {
 
 	dataNumberify(json) {
 		let optimizer = function(value) {
-			if(parseFloat(value)+"" === value) {
-				return parseFloat(value);
+			const number = Number.parseFloat(value);
+			if(number+"" === value && Number.isFinite(number)) {
+				return number;
 			} else {
 				return value;
 			}
