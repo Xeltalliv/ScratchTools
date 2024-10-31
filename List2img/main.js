@@ -46,6 +46,8 @@ fileElem.addEventListener('change', async function(event) {
 	let reader = new FileReader();
 	reader.onload = () => {
 		listData = reader.result.split("\n");
+		if(listData.length == 1) listData = reader.result.split(",").map(s => s.trim());
+		if(listData.length == 1) listData = reader.result.split(" ");
 		document.getElementById("file").value = null;
 		changeMode();
 		if(!shown) {
