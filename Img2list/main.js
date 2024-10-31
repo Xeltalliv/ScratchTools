@@ -33,20 +33,24 @@ async function processFiles(files) {
 	let channelMode = channelModes[mode[2]];
 	for(let i=0; i<channelMode.length; i++) {
 		let str = "imgdata[i+"+channelMode[i]+"]";
-		if(mode[0] != "d") str = "('00'+("+str+").toString(16)).substr(-2)";
+		if(mode[0] != "d") str = str+".toString(16).padStart(2,'0')";
 		if(mode[0] == "d" && mode[1] == "c") {
 			let mul = 256 ** (channelMode.length - 1 - i);
 			if(mul > 1) str += "*"+mul;
 		}
 		if(mode[0] == "p" && mode[1] == "n") str = "'0x'+"+str;
+		if(mode[0] == "i" && mode[1] == "n") str = "'#'+"+str;
 		if(mode[2] == "4" && channelMode[i] == 3) str = "(imgdata[i+"+channelMode[i]+"]==255?"+(mode[0] == "d"?"0":"''")+":"+str+")";
 		channels.push(str);
 	}
-	let funcSrc = (mode[0]=="p" && mode[1]=="c" ? "'0x'+" : "") + channels.join(mode[1]=="n" ? ", " : "+");
+	let funcSrc = "";
+	if(mode[0]=="p" && mode[1]=="c") funcSrc = "'0x'+";
+	if(mode[0]=="i" && mode[1]=="c") funcSrc = "'#'+";
+	funcSrc += channels.join(mode[1]=="n" ? ", " : "+");
 	if(mode[2] == "4" && mode[1] == "c") funcSrc = "imgdata[i+3]==0?'':("+funcSrc+")";
-	funcSrc = "(output, imgdata) => { for(var i=0; i<imgdata.length; i+=4) output.push("+funcSrc+");}";
+	funcSrc = "for(var i=0; i<imgdata.length; i+=4) output.push("+funcSrc+");";
 	console.log(funcSrc);
-	let func = eval(funcSrc);
+	let func = new Function("output", "imgdata", funcSrc);
 
 	let output = [];
 	for(let i=0; i<files.length; i++) {
