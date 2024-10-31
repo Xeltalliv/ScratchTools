@@ -19,7 +19,15 @@ const modeElem = document.getElementById("mode");
 if(location.hash) modeElem.value = location.hash.substr(1,3);
 modeElem.onchange = () => location.hash = "#"+modeElem.value;
 
-document.getElementById("file").onchange = async filepicker => {
+document.getElementById("file").onchange = async function(event) {
+	await processFiles(event.target.files);
+	event.target.value = null;
+};
+document.onpaste = async function(event) {
+	await processFiles(event.clipboardData.files);
+};
+
+async function processFiles(files) {
 	let mode = modeElem.value;
 	let channels = [];
 	let channelMode = channelModes[mode[2]];
@@ -41,7 +49,6 @@ document.getElementById("file").onchange = async filepicker => {
 	let func = eval(funcSrc);
 
 	let output = [];
-	let files = filepicker.target.files;
 	for(let i=0; i<files.length; i++) {
 		let file = files[i];
 		process(await new Promise((resolve, reject) => {
@@ -55,7 +62,6 @@ document.getElementById("file").onchange = async filepicker => {
 	let name = files.length == 1 ? files[0].name : "images";
 	let blob = new Blob([output.join('\n')], {type:"text/plain;charset=utf-8"});
 	saveAs(blob, name+".txt");
-	document.getElementById("file").value = null;
 }
 
 function process(image, func, output) {
