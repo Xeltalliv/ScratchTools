@@ -16,16 +16,18 @@
 
 const channelModes = [[0], [0,1,2], [0,1,2,3], [3,0,1,2], [3,0,1,2]];
 const modeElem = document.getElementById("mode");
+const fileElem = document.getElementById("file");
 if(location.hash) modeElem.value = location.hash.substr(1,3);
 modeElem.onchange = () => location.hash = "#"+modeElem.value;
 
-document.getElementById("file").onchange = async function(event) {
+fileElem.addEventListener('change', async function(event) {
 	await processFiles(event.target.files);
 	event.target.value = null;
-};
-document.onpaste = async function(event) {
+});
+document.addEventListener('paste', async function(event) {
+	event.preventDefault();
 	await processFiles(event.clipboardData.files);
-};
+});
 
 async function processFiles(files) {
 	let mode = modeElem.value;

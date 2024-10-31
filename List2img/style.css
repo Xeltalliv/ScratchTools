@@ -8,6 +8,7 @@ img{
 	image-rendering: crisp-edges;
 	border: 1px solid black;
 	width: 100%;
+	background-image: url("data:image/gif;base64,R0lGODdhAgACAIACAGZmZpmZmSwAAAAAAgACAAACA0QCBQA7");
 }
 div{
 	display: inline-block;

@@ -42,7 +42,7 @@ modeElem.addEventListener('change', () => {
 	changeMode();
 	process();
 });
-fileElem.addEventListener('change', async filepicker => {
+fileElem.addEventListener('change', async function(event) {
 	let reader = new FileReader();
 	reader.onload = () => {
 		listData = reader.result.split("\n");
@@ -55,7 +55,7 @@ fileElem.addEventListener('change', async filepicker => {
 		}
 		process();
 	}
-	reader.readAsText(filepicker.target.files[0]);
+	reader.readAsText(event.target.files[0]);
 });
 
 function process() {
@@ -86,6 +86,7 @@ function process() {
 	ctx.putImageData(new ImageData(new Uint8ClampedArray(colors), width, height), 0, 0);
 	image.src = canvas.toDataURL('image/png');
 	image.style.display = "block";
+	image.style.backgroundSize = (100 * ((2**Math.floor(Math.log2(width))) / width) / 8)+"%";
 	error.style.display = "none";
 }
 
@@ -107,6 +108,10 @@ function changeMode() {
 	if(mode[0] == "p") {
 		wrapperStart = "parseInt(";
 		wrapperEnd = ")";
+	}
+	if(mode[0] == "i") {
+		wrapperStart = "parseInt(";
+		wrapperEnd = ".substring(1), 16)";
 	}
 
 	let value0;
@@ -135,9 +140,10 @@ function changeMode() {
 	let green = "";
 	let blue = "";
 	let alpha = "";
-	let extra = "";
+	let extraPre = "";
+	let extraPost = "";
 	if(mode[2] == "0") {
-		extra = "let value = "+value0+"; ";
+		extraPre = "let value = "+value0+";\n";
 		red = "value"
 		green = "value";
 		blue = "value";
@@ -161,10 +167,18 @@ function changeMode() {
 		blue = value3;
 		alpha = value0;
 	}
+	if(mode[2] == "4") {
+		extraPre = "if (lines[i] == '') {\ncolors.push(0,0,0,0);\n} else {\n"
+		extraPost = "}\n";
+		red = value1;
+		green = value2;
+		blue = value3;
+		alpha = value0+" || 255";
+	}
 
-	let funcSrc = "(lines, colors) => {for(let i=0; i<lines.length; i+="+step+") {"+extra+"colors.push("+red+", "+green+", "+blue+", "+alpha+");}}";
+	let funcSrc = "for(let i=0; i<lines.length; i+="+step+") {\n"+extraPre+"colors.push("+red+", "+green+", "+blue+", "+alpha+");\n"+extraPost+"}";
 	console.log(funcSrc);
-	func = eval(funcSrc);
+	func = new Function("lines", "colors", funcSrc);
 }
 
 function guess() {
