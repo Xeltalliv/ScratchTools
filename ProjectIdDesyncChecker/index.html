@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Id desync checker</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script defer src="../vendor/JSZip/jszip.js"></script>
+		<script defer src="main.js"></script>
+    </head>
+    <body>
+		Select a file: <input type="file" id="filePicker" accept=".sb3, .zip, .json" multiple><br>
+		-- or -- <br>
+		Username: <input type="text" id="username"><br>
+		-- or -- <br>
+		List projects urls: <br>
+		<textarea id="projectUrls" rows="3" cols="120"></textarea><hr>
+		<button id="startButton">Start</button><span id="status"></span><br>
+		<textarea id="results" readonly rows="30" cols="120"></textarea>
+	</body>
+</html>
