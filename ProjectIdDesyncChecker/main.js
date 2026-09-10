@@ -4,8 +4,7 @@ const startButton = document.getElementById("startButton");
 const results = document.getElementById("results");
 const status = document.getElementById("status");
 const username = document.getElementById("username");
-
-const corsProxy = "https://corsproxy.io/?url=";
+const corsProxy = document.getElementById("corsProxy");
 
 async function start() {
 	startButton.disabled = true;
@@ -38,7 +37,7 @@ async function getProjectJsons() {
 			let limit = 20;
 			while(true) {
 				status.textContent = `user projects ${offset/limit}`;
-				const projects = await (await fetch(`${corsProxy}https://api.scratch.mit.edu/users/${username.value}/projects/?offset=${offset}&limit=${limit}`)).json();
+				const projects = await (await fetch(`${corsProxy.value}https://api.scratch.mit.edu/users/${username.value}/projects/?offset=${offset}&limit=${limit}`)).json();
 				for(const project of projects) rows.push(""+project.id);
 				if (projects.length < limit) break;
 				offset += limit;
