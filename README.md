@@ -22,7 +22,7 @@ A tool for converting images to lists of numbers in a variaty of ways. Useful fo
 A tool for converting lists of numbers to images. Useful for extracting textures from pen projects.
 
 
-#### [ProjectJsonMinimizer](https://xeltalliv.github.io/ScratchTools/ProjectJsonMinimizer/)
+#### [ProjectJsonMinimizer](https://xeltalliv.github.io/ScratchTools/ProjectJsonMinimizerNew/)
 
 Scratch project file format `.sb3` is actually a zip archive with all of the assets and 1 json file.
 That json file has a limit of 5 MiB, and scratch by default wastes a lot of space in it.
