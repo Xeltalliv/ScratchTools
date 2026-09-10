@@ -4,10 +4,29 @@
         <title>Id desync checker</title>
         <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content="scratch, project.json, sb3, detect issues, identifier desync">
 		<script defer src="../vendor/JSZip/jszip.js"></script>
 		<script defer src="main.js"></script>
+		<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		</style>
     </head>
     <body>
+		<details>
+			<summary>What is this tool for?</summary>
+			In project.json inside sb3 files, any time variable or list is refernced, it's done by both the id and the name.
+			Usually they point to the same variable, but sometimes due to editor bugs they can go out of sync.
+			For example, they could go out of sync when copying scripts between sprites or backpacking scripts.
+			And which of them Scratch uses? In the past Scratch preferred linking them by ids, even if names didn't match.
+			After update in mid-2026 it got changed, which broke a lot of projects, some completely, some is sublte ways.
+			For example <a href="https://scratch.mit.edu/projects/637062431/">https://scratch.mit.edu/projects/637062431/</a> got broken completely.
+			<br>
+			<br>
+			<strong>You can use this tool to check if the project is affected.</strong>
+		</details>
+		<hr>
 		Select a file: <input type="file" id="filePicker" accept=".sb3, .zip, .json" multiple><br>
 		-- or -- <br>
 		Username: <input type="text" id="username"><br>

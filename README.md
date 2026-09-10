@@ -30,6 +30,14 @@ This program reduces the size of this json file in a way that can't cause any is
 persistent even after being loaded and resaved in scratch.
 
 
+#### [ProjectIdDesyncChecker](https://xeltalliv.github.io/ScratchTools/ProjectIdDesyncChecker/)
+
+project.json stores references to variables and lists both by their id and their name.
+Sometimes due to editor bugs they could go out of sync with one another, but it didn't cause issues right away.
+After update in mid-2026 it started working differently, which broke all existing projects affected by the bug.
+You can use this tool to check if some project is affected.
+
+
 #### [Vadik's scratch programming language](https://xeltalliv.github.io/ScratchTools/ProgLang/)
 
 A compiler for a custom programming language `.vspl` that compiles into scratch 3 projects.
