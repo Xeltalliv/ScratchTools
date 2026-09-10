@@ -37,12 +37,6 @@ It contains some very [useful zero cost abstractions](https://xeltalliv.github.i
 There's also a [3D rigidbody physics engine written in it](https://github.com/Xeltalliv/VsplPhysicsEngine), a compiled version of which can be found [here](https://turbowarp.org/727515422).
 
 
-#### [ProjectHistory](https://xeltalliv.github.io/ScratchTools/ProjectHistory/)
-
-A tool for recovering old verions of projects, by getting that data
-from [DatOneLefty](https://scratch.mit.edu/users/DatOneLefty/)'s [ScratchDB](https://scratchdb.lefty.one/).
-
-
 #### [STT-Visualizer](https://xeltalliv.github.io/ScratchTools/STT_Visualizer/)
 
 A tool that allows to convert cloud log of [this](https://scratch.mit.edu/projects/555383076/) project to a human readable format.
