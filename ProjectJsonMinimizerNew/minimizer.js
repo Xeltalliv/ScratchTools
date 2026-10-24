@@ -178,7 +178,7 @@ class Minimizer {
 		let idsThatRemainUnchanged = {};
 		
 		for(let use of ids) {
-			if(types.includes(use.type)) {
+			if(types.includes(use.type) && typeof use.id === "string") {
 				if(!idUsesObject[use.id]) {
 					idUsesObject[use.id] = {
 						id: use.id,
